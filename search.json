@@ -47,43 +47,32 @@
     "href": "pcl/pcl.html",
     "title": "Pre-Class Learning Summaries",
     "section": "",
-    "text": "R",
+    "text": "Set-up and File Organization",
     "crumbs": [
       "Pre-Class Learnings",
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>Pre-Class Learning Summaries</span>"
     ]
   },
   {
-    "objectID": "pcl/pcl.html#quarto",
-    "href": "pcl/pcl.html#quarto",
-    "title": "Pre-Class Learning Summaries",
-    "section": "Quarto",
-    "text": "Quarto\n\n\n\nfrom qmd4sci.njtierney.com",
+    "objectID": "ica/ica1.html",
+    "href": "ica/ica1.html",
+    "title": "Cleaning SFO Weather Data",
+    "section": "",
+    "text": "Exercise\nCarryout the following steps to clean and save the San Francisco Weather data. Make sure to download and add the data file to your portfolio repository as instructed.\nCode#Load packages \nlibrary(dplyr)\nlibrary(lubridate)\nCode#Read in the data\nweather = read.csv(\"./data/raw/weather.csv\")\nCode#Remove 99999 values in PrecipYr \nweather$PrecipYr = weather$PrecipYr %&gt;%\n  na_if(99999)\nCode#Create DateInYear\nweather$DateInYear = yday(as.Date(weather$date, format = \"%m/%d/%y\"))\nCode#Month name variable\nweather$month_name = month(as.Date(weather$date, format = \"%m/%d/%y\"), label=TRUE, abbr=TRUE)\nCode#Save \nwrite.csv(weather, \"./data/processed/weather_clean.csv\")",
     "crumbs": [
-      "Pre-Class Learnings",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Pre-Class Learning Summaries</span>"
+      "In-Class Activities",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Cleaning SFO Weather Data</span>"
     ]
   },
   {
-    "objectID": "ica/ica-sample1.html",
-    "href": "ica/ica-sample1.html",
-    "title": "ICA Sample 1",
+    "objectID": "ica/ica1.html#exercise",
+    "href": "ica/ica1.html#exercise",
+    "title": "Cleaning SFO Weather Data",
     "section": "",
-    "text": "Add content here",
+    "text": "Read in the weather data in this file with the correct relative file path after you move it to the instructed location.\n\n\n\nThere is a variable that has values that don’t make sense in the data context. Figure out which variable this is and clean it up by making those values missing using na_if().\n\n\n\nCreate a variable called dateInYear that indicates the day of the year (1-365) for each case. (Jan 1 should be 1, and Dec 31 should be 365).\n\n\n\nCreate a variable called month_name that shows the 3-letter abbreviation for each case.\n\n\n\nSave the wrangled data to the data/processed/ folder using write_csv(). Name this file weather_clean.csv. Look up the documentation for this function by typing ?write_csv in the Console. You’ll need to write an appropriate relative path.",
     "crumbs": [
       "In-Class Activities",
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>ICA Sample 1</span>"
-    ]
-  },
-  {
-    "objectID": "ica/ica-sample2.html",
-    "href": "ica/ica-sample2.html",
-    "title": "ICA Sample 2",
-    "section": "",
-    "text": "Add content here",
-    "crumbs": [
-      "In-Class Activities",
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>ICA Sample 2</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Cleaning SFO Weather Data</span>"
     ]
   },
   {
@@ -94,7 +83,7 @@
     "text": "Add content here",
     "crumbs": [
       "Extras",
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Extra Sample 1</span>"
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Extra Sample 1</span>"
     ]
   },
   {
@@ -105,7 +94,7 @@
     "text": "Add content here",
     "crumbs": [
       "Extras",
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Extra Sample 2</span>"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Extra Sample 2</span>"
     ]
   }
 ]
