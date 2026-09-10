@@ -2,10 +2,7 @@
 title: "Pre-Class Learning Summaries"
 ---
 
-## R
+## Set-up and File Organization 
 
-![](0808-r.png)
+![](pcl1.png)
 
-## Quarto
-
-![from qmd4sci.njtierney.com](0810-quarto.jpeg)
