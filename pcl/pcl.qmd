@@ -6,3 +6,6 @@ title: "Pre-Class Learning Summaries"
 
 ![](pcl1.png)
 
+## Advanced Data Visualization
+
+![](pcl2.png)
