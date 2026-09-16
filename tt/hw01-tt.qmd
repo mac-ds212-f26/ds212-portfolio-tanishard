@@ -7,9 +7,6 @@ title: "Homework 01"
 
 Explore the week's [TidyTuesday](https://github.com/rfordatascience/tidytuesday) challenge. Develop a research question, then answer it through a short data story mainly composed of [effective visualizations]({{< var effective-viz-url >}}).  Provide sufficient background for readers to grasp your narrative.  Refer to the Homework Instructions ⭐ page on the course website for details on how to submit this part.
 
-<details>
-<summary>View Set-up Code</summary>
-
 ```{r, warning=FALSE, warning=FALSE}
 # Load packages
 library(tidytuesdayR)
@@ -19,14 +16,7 @@ library(leaflet)
 library(sf)
 library(rnaturalearth)
 library(ggrepel)
-```
 
-
-```{r, warning=FALSE}
-#| message: false
-#| warning: false
-#| include: false
-#| echo: false
 #Load data
 tuesdata <- tidytuesdayR::tt_load('2026-09-08')
 cafe <- tuesdata$cafe
@@ -43,7 +33,7 @@ coffee = left_join(cafe, cappuccino_index, by="country")
 coffee$country[coffee$country == "USA"] = "United States of America"
 coffee$country[coffee$country == "UK"] = "United Kingdom"
 ```
-</details>
+
 
 ### Variability of Coffee Prices: Globally and Locally
 
@@ -51,7 +41,7 @@ The price of coffee varies widely globally. The world map below displays the med
 
 ```{r, warning=FALSE}
 #| code-fold: true
-#| code-summary: "View Code"
+#| code-summary: "View World Map Code"
 
 #Get the mean and median coffee price 
 aggs = coffee%>%
@@ -74,8 +64,9 @@ ggplot(data = map_data_merged) +
   labs(
     title = "Median Price of a Small Cappuccino in GBP",
     fill = "Median Price (GBP)",
-    caption = "Countries in grey have no data", 
-    alt = "This World Map shows the median price of a small cappuccino in GBP by country. Saudi Arabia has the highest median price. Europe and North America seem to have higher coffee prices in general."
+    subtitle = "Countries in grey have no data", 
+    alt = "This World Map shows the median price of a small cappuccino in GBP by country. Saudi Arabia has the highest median price. Europe and North America seem to have higher coffee prices in general.", 
+    caption = "Source: TidyTuesday | Date: September 16, 2026 | Author: Tanisha Dodla"
   ) +
   theme(
     plot.title = element_text(
@@ -89,6 +80,10 @@ ggplot(data = map_data_merged) +
     plot.caption = element_text(
       hjust = 0.5,
       size = 9
+    ), 
+    plot.subtitle = element_text(
+      hjust = 0.5,
+      size = 9
     )
   )
 ```
@@ -96,7 +91,7 @@ We can explore this more empirically using a boxplot, where we look at the media
 
 ```{r, warning=FALSE}
 #| code-fold: true
-#| code-summary: "View Code"
+#| code-summary: "View Boxplot 1 Code"
 # Recode seven seas and oceania, remove antarctica
 plot_data <- map_data_merged %>%
   filter(continent != "Antarctica") %>%
@@ -157,11 +152,129 @@ ggplot(plot_data, aes(x = continent, y = median_price)) +
   )
 ```
 
+We can look at within-country variability of coffee prices as well. The figures below show that Denmark and Switzerland have very large outliers, and they mostly seem to be contained in large metro cities or their capital cities. This is the case with Ukraine as well. Indonesia has the largest within-country coffee price variation in these sixteen countries we are looking at. 
+
+
+```{r, warning=FALSE}
+#| code-fold: true
+#| code-summary: "View Boxplot 2 Code"
+
+top_10 = coffee %>%
+  group_by(country) %>%
+  summarize(median_price = median(price_gbp, na.rm = TRUE)) %>%
+  arrange(desc(median_price)) %>%
+  slice_head(n = 8)
+
+# Identify outliers in the top countries
+top_outliers <- coffee %>%
+  filter(country %in% top_10$country) %>%
+  group_by(country) %>%
+  mutate(
+    Q1 = quantile(price_gbp, 0.25, na.rm = TRUE),
+    Q3 = quantile(price_gbp, 0.75, na.rm = TRUE),
+    IQR = Q3 - Q1,
+    is_outlier = price_gbp < Q1 - 1.5 * IQR |
+                 price_gbp > Q3 + 1.5 * IQR
+  ) %>%
+  filter(is_outlier) %>%
+  ungroup()
+
+ggplot(
+  coffee %>% filter(country %in% top_10$country),
+  aes(x = country, y = price_gbp)
+) +
+  geom_boxplot() +
+  
+  # Red outlier points
+  geom_point(
+    data = top_outliers,
+    color = "red",
+    size = 2
+  ) +
+  
+  # Red city labels
+  geom_text_repel(
+    data = top_outliers,
+    aes(label = city),
+    color = "red", size = 2,
+    nudge_x = 0.15,
+    direction = "y"
+  ) +
+  
+  theme_classic() +
+  labs(
+    x = "Country",
+    y = "Price of a Small Cappuccino in GBP",
+    title = "Eight Most Expensive Countries for a Small Cappuccino in GBP"
+  )+
+  theme(
+    plot.title = element_text(
+      hjust = 0.5,
+      size = 14
+    ))
+```
+
+```{r, warning=FALSE}
+#| code-fold: true
+#| code-summary: "View Boxplot 3 Code"
+bottom_10 = coffee%>%
+  group_by(country)%>%
+  summarize(median_price=median(price_gbp, na.rm=TRUE))%>%
+  arrange(median_price)%>%
+  slice_head(n = 8)
+
+bottom_outliers <- coffee %>%
+  filter(country %in% bottom_10$country) %>%
+  group_by(country) %>%
+  mutate(
+    Q1 = quantile(price_gbp, 0.25, na.rm = TRUE),
+    Q3 = quantile(price_gbp, 0.75, na.rm = TRUE),
+    IQR = Q3 - Q1,
+    is_outlier = price_gbp < Q1 - 1.5 * IQR |
+                 price_gbp > Q3 + 1.5 * IQR
+  ) %>%
+  filter(is_outlier) %>%
+  ungroup()
+
+ggplot(
+  coffee %>% filter(country %in% bottom_10$country),
+  aes(x = country, y = price_gbp)
+) +
+  geom_boxplot() +
+  
+  geom_point(
+    data = bottom_outliers,
+    color = "red",
+    size = 2
+  ) +
+  
+  geom_text_repel(
+    data = bottom_outliers,
+    aes(label = city),
+    color = "red",
+    nudge_x = 0.15,
+    direction = "y", size = 2,
+  ) +
+  
+  theme_classic() +
+  labs(
+    x = "Country",
+    y = "Price of a Small Cappuccino in GBP",
+    title = "Eight Cheapest Countries for a Small Cappuccino in GBP"
+  )+
+  theme(
+    plot.title = element_text(
+      hjust = 0.5,
+      size = 14
+    ))
+```
+
+
 Finally, there is variation by location type. From the figure below, the median price of a small cappuccino seems to be the same if the coffee shop is rural, suburban, or urban. However, there is a lot more variability in urban coffee shops: the range of prices that are charged in small coffee shops is a lot larger, and can exceed 10 pounds. This variability still exists for suburban coffee shops, but the range does not go as high up as urban coffee shops. Rural coffee shops have a smaller range - the price starts higher and ends lower. 
 
 ```{r, warning=FALSE}
 #| code-fold: true
-#| code-summary: "View Code"
+#| code-summary: "View Boxplot 4 Code"
 #Create an area type variable 
 coffee <- coffee %>%
   mutate(area_type = case_when(

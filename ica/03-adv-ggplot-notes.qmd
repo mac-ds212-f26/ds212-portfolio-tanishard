@@ -173,7 +173,12 @@ ggplot(weather, aes(x=dateInYear)) +
   geom_linerange(aes(ymin=RecordLow, ymax=RecordHigh), color="#ECEBE3")+
   geom_linerange(aes(ymin=NormalLow, ymax=NormalHigh), color = "#C8B8BA")+
   geom_linerange(aes(ymin=Low, ymax=High), color = "#A90248")+
-  geom_vline(month_boundaries, xintercept=month_boundaries$month_boundary, linetype="dashed")+
+  geom_vline(
+  xintercept = month_boundaries$month_boundary[-1],
+  linetype = "dashed",
+  color = "gray"
+)+
+  scale_x_discrete(limits=c(1,365))+
   theme_classic()
 ```
 
@@ -195,16 +200,32 @@ Try to figuring out this new challenge using search engines and LLMs:
 - **LLMs.** Use [ChatGPT](https://chat.openai.com/) or [Gemini](https://gemini.google.com/) with prompts that will most efficiently get you the desired results. Record the chat prompts used and output given. Evaluate the output. Do you fully understand the code generated? How can you tell that the generated code is correct?
 
 ```{r}
-month_boundaries = month_boundaries%>%
-  mutate(month_name = month.name[Month])
+month_boundaries = month_boundaries %>%
+  mutate(
+    month_name = month.name[Month],
+    midpoint = (month_boundary + lead(month_boundary, default = 366)) / 2
+  )
 
 
 ggplot(weather, aes(x=dateInYear)) +
   geom_linerange(aes(ymin=RecordLow, ymax=RecordHigh), color="#ECEBE3")+
   geom_linerange(aes(ymin=NormalLow, ymax=NormalHigh), color = "#C8B8BA")+
   geom_linerange(aes(ymin=Low, ymax=High), color = "#A90248")+
-  geom_vline(month_boundaries, xintercept=month_boundaries$month_boundary, linetype="dashed")+
-  scale_x_continuous(breaks = month_boundaries$month_boundary,labels = month_boundaries$month_name) +
+  geom_vline(
+  xintercept = month_boundaries$month_boundary[-1],
+  linetype = "dashed",
+  color = "gray"
+) + 
+  scale_x_continuous(
+    breaks = NULL,
+    limits = c(0, 365),
+    expand = c(0, 0)
+  ) +
+  geom_text(
+    data = month_boundaries,
+    aes(x = midpoint, y = -Inf, label = month_name),
+    vjust = -1, size = 2
+  ) +
   labs(x=NULL)+
   theme_classic()
 ```
@@ -221,7 +242,10 @@ Create a precipitation plot that looks like the following.  Note that
 
 
 ```{r weather_plot_precip}
-
+ggplot(weather, aes(x = dateInYear, y = CulmPrec)) +
+  geom_area(fill = "#ebeae2") +
+  geom_line(color = "#32a3d8", ) +
+  theme_classic()
 ```
 ## Done!
 
