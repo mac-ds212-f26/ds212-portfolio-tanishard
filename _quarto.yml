@@ -66,8 +66,7 @@ book:
 
     - part: "TidyTuesday"
       chapters:
-      - tt/2025-07-08.qmd
-      - tt/2025-07-15.qmd
+      - tt/hw01-tt.qmd
 
     - part: "Pre-Class Learnings"
       chapters:
@@ -76,6 +75,7 @@ book:
     - part: "In-Class Activities"
       chapters:
       - ica/ica1.qmd
+      - ica/03-adv-ggplot-notes.qmd
 
     - part: "Extras"
       chapters:
