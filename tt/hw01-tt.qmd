@@ -39,7 +39,7 @@ coffee$country[coffee$country == "UK"] = "United Kingdom"
 
 The price of coffee varies widely globally. The world map below displays the median price of a small cappuccino in GBP (Great Britian Pounds) in countries where data is available. From the graph, European and North American countries seem to have higher median prices for a small cappuccino. Saudi Arabia seems to have the highest median price for a coffee, and Bolivia seems to have the lowest median price for a coffee.
 
-```{r, warning=FALSE}
+```{r, warning=FALSE, width = 10}
 #| code-fold: true
 #| code-summary: "View World Map Code"
 
@@ -49,7 +49,8 @@ aggs = coffee%>%
   summarize(median_price = median(price_gbp))
 
 #Create a choropleth map
-world_map <- ne_countries(scale = "medium", returnclass = "sf")
+world_map <- ne_countries(scale = "medium", returnclass = "sf")%>%
+  filter(name != "Antarctica")
 
 map_data_merged <- world_map %>%
   left_join(aggs, by = c("name" = "country"))
@@ -62,11 +63,12 @@ ggplot(data = map_data_merged) +
   ) +
   theme_classic() +
   labs(
-    title = "Median Price of a Small Cappuccino in GBP",
+    x = NULL, 
+    title = "Median Price of a Small Cappuccino in Pounds (GBP)",
     fill = "Median Price (GBP)",
-    subtitle = "Countries in grey have no data", 
+    subtitle = "North America, Europe have the highest coffee prices; Africa has the lowest coffee prices.",
     alt = "This World Map shows the median price of a small cappuccino in GBP by country. Saudi Arabia has the highest median price. Europe and North America seem to have higher coffee prices in general.", 
-    caption = "Source: TidyTuesday | Date: September 16, 2026 | Author: Tanisha Dodla"
+    caption = "Countries in grey have no data \nSource: TidyTuesday | Date Created: September 16, 2026 | Author: Tanisha Dodla"
   ) +
   theme(
     plot.title = element_text(
@@ -84,7 +86,11 @@ ggplot(data = map_data_merged) +
     plot.subtitle = element_text(
       hjust = 0.5,
       size = 9
-    )
+    ), 
+  axis.line = element_blank(),
+  axis.ticks = element_blank(),
+  axis.text = element_blank(),
+  axis.title = element_blank()
   )
 ```
 We can explore this more empirically using a boxplot, where we look at the median price of a small cappuccino in GBP by continent. The boxplot below affirms that North America and Europe have the highest median cofee prices, and Asia and Europe have the most variation in prices (at the country level). Africa and Oceania have the least variation in coffee prices. Africa also has the lowest median coffee price. It is true that Saudi Arabia has the highest coffee price - which we saw from the world map. However, it seems like Africa has the lowest median coffee prices. 
