@@ -68,7 +68,7 @@ ggplot(data = map_data_merged) +
     fill = "Median Price (GBP)",
     subtitle = "North America, Europe have the highest coffee prices; Africa has the lowest coffee prices.",
     alt = "This World Map shows the median price of a small cappuccino in GBP by country. Saudi Arabia has the highest median price. Europe and North America seem to have higher coffee prices in general.", 
-    caption = "Countries in grey have no data \nSource: TidyTuesday | Date Created: September 16, 2026 | Author: Tanisha Dodla"
+    caption = "Countries in grey have no data \nSource: CappuccinoIndex, TidyTuesday | Date Created: September 16, 2026 | Author: Tanisha Dodla"
   ) +
   theme(
     plot.title = element_text(
