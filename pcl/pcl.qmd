@@ -13,3 +13,7 @@ title: "Pre-Class Learning Summaries"
 ## Advanced Spatial Visualization
 
 ![](pcl3.png)
+
+## Advanced Data Wrangling
+
+![](pcl4.png)
