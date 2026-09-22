@@ -76,6 +76,7 @@ book:
       chapters:
       - ica/ica1.qmd
       - ica/03-adv-ggplot-notes.qmd
+      - ica/04-adv-maps/code/04-adv-maps-1-notes.qmd
 
     - part: "Extras"
       chapters:
