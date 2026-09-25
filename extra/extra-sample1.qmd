@@ -1,5 +1,210 @@
 ---
-title: "Extra Sample 1"
+title: "Am I Actually Getting Better at the Waffle?"
 ---
 
-Add content here
+One of my best friends lives in Dubai, and since most video-calling over apps is banned, I Google Meet her once a month. Google Meet can lead to some interesting screen-sharing opportunities; we added the New York Times games suite into our calls every month, and we added a game called Waffle to our rotation shortly after (see example of a Waffle Deluxe board below).
+
+<center>
+![](Waffle.png)
+</center>
+
+The goal of the game is to find all eight words in as few letter swaps as possible (must be fewer than 26 swaps), as fast as possible. Every call (we called about once a month) we would play three rounds of this game (except for December 2025, we only played 2 rounds), and record how long it took us to play the game. I originally just used Google Sheets to give me an overall average time with and without outliers, but I have other questions: how has our average changed over time? Have we actually gotten better? Are we worse at the first round than the third round? Let's answer these questions! 
+
+
+```{r, warning=FALSE}
+#| code-fold: true
+#| code-summary: "View Set-up and Data"
+#Install and Load packages
+#install.packages("googlesheets4")
+#install.packages("kableExtra") 
+library(googlesheets4)
+library(tidyverse)
+library(rstatix)
+library(plotly)
+library(kableExtra)
+library(knitr)
+
+# Authorize with the Sheets scope
+#gs4_auth(scopes = "https://www.googleapis.com/auth/spreadsheets.readonly")
+
+#Read in the data
+waffle = read_sheet("https://docs.google.com/spreadsheets/d/1d5EpYRwLbhHzg88ndTDWJOECDkzzC_KcmPcgN9tvkNY/edit?gid=0#gid=0")
+waffle$date = as.Date(waffle$date)
+waffle$round = as.factor(waffle$round)
+```
+
+
+```{r, warning=FALSE}
+#| code-fold: true
+#| code-summary: "View Summary Table Code"
+#Average time by date 
+summary = waffle %>%
+  group_by(date)%>%
+  summarize(average_time = mean(time, na.rm=TRUE), 
+            sd_time = sd(time, na.rm = TRUE))
+
+#Excluding extreme points
+outlier = identify_outliers(waffle, time)
+waffle_new = waffle %>%
+  filter(!(date == outlier$date & time == outlier$time))
+
+#Re-calculate average time by date 
+summary_new = waffle_new %>%
+  group_by(date)%>%
+  summarize(average_time = mean(time, na.rm=TRUE), 
+            sd_time = sd(time, na.rm = TRUE))
+
+#Disaggregated with outliers 
+average_old = mean(waffle$time, na.rm = TRUE)
+sd_old = sd(waffle$time, na.rm = TRUE)
+
+#Disaggregated without outliers 
+average_new = mean(waffle_new$time, na.rm = TRUE)
+sd_new = sd(waffle_new$time, na.rm = TRUE)
+
+#Aggregate at the round level 
+rounds = waffle%>%
+  group_by(round)%>%
+  summarize(mean_time = mean(time, na.rm=TRUE), 
+            sd_time = sd(time, na.rm=TRUE))%>%
+  rename(`Round` = round)
+
+#Aggregate at the round level without the outlier
+rounds_new = waffle_new%>%
+  group_by(round)%>%
+  summarize(mean_time = mean(time, na.rm=TRUE), 
+            sd_time = sd(time, na.rm=TRUE))%>%
+      rename(`Round` = round)
+
+#Create a summary Table by date
+table_date = full_join(
+  summary %>%
+    rename(`Average Time (With Outliers)` = average_time,
+      `Variability in Time (With Outliers)` = sd_time, 
+      `Date` = date),
+  summary_new %>%
+    rename(`Average Time (Without Outliers)` = average_time,
+      `Variability in Time (Without Outliers)` = sd_time, 
+      `Date` = date),
+  by = "Date")
+
+table_date %>%
+  kable(
+    format = "html",
+    digits = 2,
+    col.names = c(
+      "Date",
+      "Average Time (With Outliers)",
+      "Variability (With Outliers)",
+      "Average Time (Without Outliers)",
+      "Variability (Without Outliers)"
+    ),
+    align = "c",
+    caption = "Summary of solving times by date"
+  ) %>%
+  kable_styling(
+    bootstrap_options = c("striped", "hover", "condensed"),
+    full_width = FALSE,
+    position = "center"
+  )
+
+#Create a summary Table 
+table_rounds = full_join(
+  rounds %>%
+    rename(`Average Time (With Outliers)` = mean_time,
+      `Variability in Time (With Outliers)` = sd_time),
+  rounds_new %>%
+    rename(`Average Time (Without Outliers)` = mean_time,
+      `Variability in Time (Without Outliers)` = sd_time),
+  by = "Round")
+
+table_rounds %>%
+  kable(
+    format = "html",
+    digits = 2,
+    col.names = c(
+      "Round",
+      "Average Time (With Outliers)",
+      "Variability (With Outliers)",
+      "Average Time (Without Outliers)",
+      "Variability (Without Outliers)"
+    ),
+    align = "c",
+    caption = "Summary of solving times by round"
+  ) %>%
+  kable_styling(
+    bootstrap_options = c("striped", "hover", "condensed"),
+    full_width = FALSE,
+    position = "center"
+  )
+```
+
+
+From our descriptive statistics, we see that the average time it takes to solve a Deluxe waffle falls, and we are more consistently doing doing better (our variability falls as well). Additionally, once we exclude outliers, our third round is better than our second round, which is better than our first - we are about 50 seconds faster at solving a waffle the third time around than the first. Let's look at some graphs. The first set of graphs is with outliers, and the second is without. 
+
+### Graphing with Outliers
+
+These graphs tell me that I have gotten so so much better at this game. I reduce my average time by 50%, and I get more consistent.
+
+
+```{r, warning = FALSE}
+#| code-fold: true
+#| code-summary: "View Graphing Code"
+ggplot(summary, aes(x = date, y = average_time)) +
+  geom_line()+
+  theme_classic()+
+  scale_x_date(date_breaks = "1 month", date_labels = "%b")+
+  labs(x = "Date Game Played", y = "Average Time (minutes)", title = "Average Time Taken to Solve a Waffle", subtitle = "The average time to solve a deluxe waffle falls by over 50%, from about 12 minutes in January 2026 to under 6 minutes in September 2026.", caption = "Date Created: September 24, 2026 | Author: Tanisha Dodla")
+
+
+ggplot(summary, aes(x = date, y = sd_time)) +
+  geom_line()+
+  theme_classic()+
+  scale_x_date(date_breaks = "1 month", date_labels = "%b")+
+  labs(x = "Date Game Played", y = "Standard Deviation of Time (minutes)", title = "Variability in Time Taken to Solve a Waffle", subtitle = "The standard deviation between solve times for the deluxe waffle falls by about 90%, from about 10 minutes in January 2026 to about 1 minute in September 2026.", caption = "Date Created: September 24, 2026 | Author: Tanisha Dodla")
+
+ggplot(waffle, aes(
+  x = date,
+  y = time,
+  color = round,
+  group = round)) +
+  geom_line()+
+  theme_classic()+
+  scale_x_date(date_breaks = "1 month", date_labels = "%b")+
+  labs(x = "Date Game Played", y = "Time (minutes)", title = "Time Taken to Solve a Waffle, Colored by Round", subtitle = "The first and third rounds are the least variable; we seem to do the worst on the second round.", caption = "Date Created: September 24, 2026 | Author: Tanisha Dodla", color = "Round Played")
+
+```
+### Graphing without Outliers
+
+These next three graphs show a more stable trend: we don't seem to be doing any better, but we also don't seem to be doing any worse. If anything, we seem to be more consistently doing just medium. 
+
+
+```{r, warning = FALSE}
+#| code-fold: true
+#| code-summary: "View Graphing Code"
+ggplot(summary_new, aes(x = date, y = average_time)) +
+  geom_line()+
+  theme_classic()+
+  scale_x_date(date_breaks = "1 month", date_labels = "%b")+
+  labs(x = "Date Game Played", y = "Average Time (minutes)", title = "Average Time Taken to Solve a Waffle Without Extreme Outliers", subtitle = "The average time stays roughly the same, from about 5 minutes in January 2026 to just under 5 minutes in September 2026.", caption = "Date Created: September 24, 2026 | Author: Tanisha Dodla")
+
+
+ggplot(summary_new, aes(x = date, y = sd_time)) +
+  geom_line()+
+  theme_classic()+
+  scale_x_date(date_breaks = "1 month", date_labels = "%b")+
+  labs(x = "Date Game Played", y = "Standard Deviation of Time (minutes)", title = "Variability in Time Taken to Solve a Waffle without Extreme Outliers", subtitle = "The standard deviation between solve times for the deluxe waffle falls, from about 3 minutes in February 2026 to under 1 minute in September 2026.", caption = "Date Created: September 24, 2026 | Author: Tanisha Dodla")
+
+ggplot(waffle_new, aes(
+  x = date,
+  y = time,
+  color = round,
+  group = round)) +
+  geom_line()+
+  theme_classic()+
+  scale_x_date(date_breaks = "1 month", date_labels = "%b")+
+  labs(x = "Date Game Played", y = "Time (minutes)", title = "Time Taken to Solve a Waffle, Colored by Round, Without Extreme Outliers", subtitle = "The first round is the most variable.", caption = "Date Created: September 24, 2026 | Author: Tanisha Dodla", color = "Round Played")
+```
+
+
+This exercise has shown me that not including outliers may completely change the trend that I see. It has also shown me that I haven't really gotten better or worse - just more consistent. I guess that means that I should play more (I'm certainly not getting any worse)! 
