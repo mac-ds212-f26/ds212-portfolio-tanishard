@@ -154,14 +154,14 @@ ggplot(summary, aes(x = date, y = average_time)) +
   geom_line()+
   theme_classic()+
   scale_x_date(date_breaks = "1 month", date_labels = "%b")+
-  labs(x = "Date Game Played", y = "Average Time (minutes)", title = "Average Time Taken to Solve a Waffle", subtitle = "The average time to solve a deluxe waffle falls by over 50%, from about 12 minutes in January 2026 to under 6 minutes in September 2026.", caption = "Date Created: September 24, 2026 | Author: Tanisha Dodla")
+  labs(x = "Date Game Played", y = "Average Time (minutes)", title = "Average Time Taken to Solve a Waffle", subtitle = "The average time to solve a deluxe waffle falls by over 50%, from about 12 minutes \nin January 2026 to under 6 minutes in September 2026.", caption = "Date Created: September 24, 2026 | Author: Tanisha Dodla")
 
 
 ggplot(summary, aes(x = date, y = sd_time)) +
   geom_line()+
   theme_classic()+
   scale_x_date(date_breaks = "1 month", date_labels = "%b")+
-  labs(x = "Date Game Played", y = "Standard Deviation of Time (minutes)", title = "Variability in Time Taken to Solve a Waffle", subtitle = "The standard deviation between solve times for the deluxe waffle falls by about 90%, from about 10 minutes in January 2026 to about 1 minute in September 2026.", caption = "Date Created: September 24, 2026 | Author: Tanisha Dodla")
+  labs(x = "Date Game Played", y = "Standard Deviation of Time (minutes)", title = "Variability in Time Taken to Solve a Waffle", subtitle = "The standard deviation between solve times for the deluxe waffle falls by about 90%, from about 10 minutes in \nJanuary 2026 to about 1 minute in September 2026.", caption = "Date Created: September 24, 2026 | Author: Tanisha Dodla")
 
 ggplot(waffle, aes(
   x = date,
@@ -171,7 +171,7 @@ ggplot(waffle, aes(
   geom_line()+
   theme_classic()+
   scale_x_date(date_breaks = "1 month", date_labels = "%b")+
-  labs(x = "Date Game Played", y = "Time (minutes)", title = "Time Taken to Solve a Waffle, Colored by Round", subtitle = "The first and third rounds are the least variable; we seem to do the worst on the second round.", caption = "Date Created: September 24, 2026 | Author: Tanisha Dodla", color = "Round Played")
+  labs(x = "Date Game Played", y = "Time (minutes)", title = "Time Taken to Solve a Waffle, Colored by Round", subtitle = "The first and third rounds are the least variable; \nwe seem to do the worst on the second round.", caption = "Date Created: September 24, 2026 | Author: Tanisha Dodla", color = "Round Played")
 
 ```
 ### Graphing without Outliers
@@ -186,14 +186,14 @@ ggplot(summary_new, aes(x = date, y = average_time)) +
   geom_line()+
   theme_classic()+
   scale_x_date(date_breaks = "1 month", date_labels = "%b")+
-  labs(x = "Date Game Played", y = "Average Time (minutes)", title = "Average Time Taken to Solve a Waffle Without Extreme Outliers", subtitle = "The average time stays roughly the same, from about 5 minutes in January 2026 to just under 5 minutes in September 2026.", caption = "Date Created: September 24, 2026 | Author: Tanisha Dodla")
+  labs(x = "Date Game Played", y = "Average Time (minutes)", title = "Average Time Taken to Solve a Waffle Without Extreme Outliers", subtitle = "The average time stays roughly the same, from about 5 minutes \nin January 2026 to just under 5 minutes in September 2026.", caption = "Date Created: September 24, 2026 | Author: Tanisha Dodla")
 
 
 ggplot(summary_new, aes(x = date, y = sd_time)) +
   geom_line()+
   theme_classic()+
   scale_x_date(date_breaks = "1 month", date_labels = "%b")+
-  labs(x = "Date Game Played", y = "Standard Deviation of Time (minutes)", title = "Variability in Time Taken to Solve a Waffle without Extreme Outliers", subtitle = "The standard deviation between solve times for the deluxe waffle falls, from about 3 minutes in February 2026 to under 1 minute in September 2026.", caption = "Date Created: September 24, 2026 | Author: Tanisha Dodla")
+  labs(x = "Date Game Played", y = "Standard Deviation of Time (minutes)", title = "Variability in Time Taken to Solve a Waffle without Extreme Outliers", subtitle = "The standard deviation between solve times for the deluxe waffle falls, from about 3 minutes \nin February 2026 to under 1 minute in September 2026.", caption = "Date Created: September 24, 2026 | Author: Tanisha Dodla")
 
 ggplot(waffle_new, aes(
   x = date,
