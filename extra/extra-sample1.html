@@ -59,8 +59,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../extra/extra-sample2.html" rel="next">
-<link href="../ica/06-wrangling-1-notes.html" rel="prev">
+<link href="../ica/07-wrangling-2.html" rel="prev">
 <script src="../site_libs/cookie-consent/cookie-consent.js"></script>
 <link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
 <script src="../site_libs/quarto-html/quarto.js"></script>
@@ -238,6 +237,11 @@ cookieconsent.run({
   <a href="../ica/06-wrangling-1-notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Wrangling Diamonds Data</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/07-wrangling-2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Wrangling Strings</span></a>
+  </div>
+</li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -252,11 +256,6 @@ cookieconsent.run({
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../extra/extra-sample1.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Am I Actually Getting Better at the Waffle?</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../extra/extra-sample2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Extra Sample 2</span></a>
   </div>
 </li>
       </ul>
@@ -535,7 +534,7 @@ cookieconsent.run({
 <span id="cb4-2"><a href="#cb4-2"></a>  <span class="fu">geom_line</span>()<span class="sc">+</span></span>
 <span id="cb4-3"><a href="#cb4-3"></a>  <span class="fu">theme_classic</span>()<span class="sc">+</span></span>
 <span id="cb4-4"><a href="#cb4-4"></a>  <span class="fu">scale_x_date</span>(<span class="at">date_breaks =</span> <span class="st">"1 month"</span>, <span class="at">date_labels =</span> <span class="st">"%b"</span>)<span class="sc">+</span></span>
-<span id="cb4-5"><a href="#cb4-5"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Date Game Played"</span>, <span class="at">y =</span> <span class="st">"Average Time (minutes)"</span>, <span class="at">title =</span> <span class="st">"Average Time Taken to Solve a Waffle"</span>, <span class="at">subtitle =</span> <span class="st">"The average time to solve a deluxe waffle falls by over 50%, from about 12 minutes in January 2026 to under 6 minutes in September 2026."</span>, <span class="at">caption =</span> <span class="st">"Date Created: September 24, 2026 | Author: Tanisha Dodla"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-5"><a href="#cb4-5"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Date Game Played"</span>, <span class="at">y =</span> <span class="st">"Average Time (minutes)"</span>, <span class="at">title =</span> <span class="st">"Average Time Taken to Solve a Waffle"</span>, <span class="at">subtitle =</span> <span class="st">"The average time to solve a deluxe waffle falls by over 50%, from about 12 minutes </span><span class="sc">\n</span><span class="st">in January 2026 to under 6 minutes in September 2026."</span>, <span class="at">caption =</span> <span class="st">"Date Created: September 24, 2026 | Author: Tanisha Dodla"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <div>
 <figure class="figure"><p><img src="extra-sample1_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
@@ -546,7 +545,7 @@ cookieconsent.run({
 <span id="cb5-2"><a href="#cb5-2"></a>  <span class="fu">geom_line</span>()<span class="sc">+</span></span>
 <span id="cb5-3"><a href="#cb5-3"></a>  <span class="fu">theme_classic</span>()<span class="sc">+</span></span>
 <span id="cb5-4"><a href="#cb5-4"></a>  <span class="fu">scale_x_date</span>(<span class="at">date_breaks =</span> <span class="st">"1 month"</span>, <span class="at">date_labels =</span> <span class="st">"%b"</span>)<span class="sc">+</span></span>
-<span id="cb5-5"><a href="#cb5-5"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Date Game Played"</span>, <span class="at">y =</span> <span class="st">"Standard Deviation of Time (minutes)"</span>, <span class="at">title =</span> <span class="st">"Variability in Time Taken to Solve a Waffle"</span>, <span class="at">subtitle =</span> <span class="st">"The standard deviation between solve times for the deluxe waffle falls by about 90%, from about 10 minutes in January 2026 to about 1 minute in September 2026."</span>, <span class="at">caption =</span> <span class="st">"Date Created: September 24, 2026 | Author: Tanisha Dodla"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-5"><a href="#cb5-5"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Date Game Played"</span>, <span class="at">y =</span> <span class="st">"Standard Deviation of Time (minutes)"</span>, <span class="at">title =</span> <span class="st">"Variability in Time Taken to Solve a Waffle"</span>, <span class="at">subtitle =</span> <span class="st">"The standard deviation between solve times for the deluxe waffle falls by about 90%, from about 10 minutes in </span><span class="sc">\n</span><span class="st">January 2026 to about 1 minute in September 2026."</span>, <span class="at">caption =</span> <span class="st">"Date Created: September 24, 2026 | Author: Tanisha Dodla"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <div>
 <figure class="figure"><p><img src="extra-sample1_files/figure-html/unnamed-chunk-3-2.png" class="img-fluid figure-img" width="672"></p>
@@ -561,7 +560,7 @@ cookieconsent.run({
 <span id="cb6-6"><a href="#cb6-6"></a>  <span class="fu">geom_line</span>()<span class="sc">+</span></span>
 <span id="cb6-7"><a href="#cb6-7"></a>  <span class="fu">theme_classic</span>()<span class="sc">+</span></span>
 <span id="cb6-8"><a href="#cb6-8"></a>  <span class="fu">scale_x_date</span>(<span class="at">date_breaks =</span> <span class="st">"1 month"</span>, <span class="at">date_labels =</span> <span class="st">"%b"</span>)<span class="sc">+</span></span>
-<span id="cb6-9"><a href="#cb6-9"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Date Game Played"</span>, <span class="at">y =</span> <span class="st">"Time (minutes)"</span>, <span class="at">title =</span> <span class="st">"Time Taken to Solve a Waffle, Colored by Round"</span>, <span class="at">subtitle =</span> <span class="st">"The first and third rounds are the least variable; we seem to do the worst on the second round."</span>, <span class="at">caption =</span> <span class="st">"Date Created: September 24, 2026 | Author: Tanisha Dodla"</span>, <span class="at">color =</span> <span class="st">"Round Played"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-9"><a href="#cb6-9"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Date Game Played"</span>, <span class="at">y =</span> <span class="st">"Time (minutes)"</span>, <span class="at">title =</span> <span class="st">"Time Taken to Solve a Waffle, Colored by Round"</span>, <span class="at">subtitle =</span> <span class="st">"The first and third rounds are the least variable; </span><span class="sc">\n</span><span class="st">we seem to do the worst on the second round."</span>, <span class="at">caption =</span> <span class="st">"Date Created: September 24, 2026 | Author: Tanisha Dodla"</span>, <span class="at">color =</span> <span class="st">"Round Played"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <div>
 <figure class="figure"><p><img src="extra-sample1_files/figure-html/unnamed-chunk-3-3.png" class="img-fluid figure-img" width="672"></p>
@@ -576,7 +575,7 @@ cookieconsent.run({
 <span id="cb7-2"><a href="#cb7-2"></a>  <span class="fu">geom_line</span>()<span class="sc">+</span></span>
 <span id="cb7-3"><a href="#cb7-3"></a>  <span class="fu">theme_classic</span>()<span class="sc">+</span></span>
 <span id="cb7-4"><a href="#cb7-4"></a>  <span class="fu">scale_x_date</span>(<span class="at">date_breaks =</span> <span class="st">"1 month"</span>, <span class="at">date_labels =</span> <span class="st">"%b"</span>)<span class="sc">+</span></span>
-<span id="cb7-5"><a href="#cb7-5"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Date Game Played"</span>, <span class="at">y =</span> <span class="st">"Average Time (minutes)"</span>, <span class="at">title =</span> <span class="st">"Average Time Taken to Solve a Waffle Without Extreme Outliers"</span>, <span class="at">subtitle =</span> <span class="st">"The average time stays roughly the same, from about 5 minutes in January 2026 to just under 5 minutes in September 2026."</span>, <span class="at">caption =</span> <span class="st">"Date Created: September 24, 2026 | Author: Tanisha Dodla"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-5"><a href="#cb7-5"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Date Game Played"</span>, <span class="at">y =</span> <span class="st">"Average Time (minutes)"</span>, <span class="at">title =</span> <span class="st">"Average Time Taken to Solve a Waffle Without Extreme Outliers"</span>, <span class="at">subtitle =</span> <span class="st">"The average time stays roughly the same, from about 5 minutes </span><span class="sc">\n</span><span class="st">in January 2026 to just under 5 minutes in September 2026."</span>, <span class="at">caption =</span> <span class="st">"Date Created: September 24, 2026 | Author: Tanisha Dodla"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <div>
 <figure class="figure"><p><img src="extra-sample1_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
@@ -587,7 +586,7 @@ cookieconsent.run({
 <span id="cb8-2"><a href="#cb8-2"></a>  <span class="fu">geom_line</span>()<span class="sc">+</span></span>
 <span id="cb8-3"><a href="#cb8-3"></a>  <span class="fu">theme_classic</span>()<span class="sc">+</span></span>
 <span id="cb8-4"><a href="#cb8-4"></a>  <span class="fu">scale_x_date</span>(<span class="at">date_breaks =</span> <span class="st">"1 month"</span>, <span class="at">date_labels =</span> <span class="st">"%b"</span>)<span class="sc">+</span></span>
-<span id="cb8-5"><a href="#cb8-5"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Date Game Played"</span>, <span class="at">y =</span> <span class="st">"Standard Deviation of Time (minutes)"</span>, <span class="at">title =</span> <span class="st">"Variability in Time Taken to Solve a Waffle without Extreme Outliers"</span>, <span class="at">subtitle =</span> <span class="st">"The standard deviation between solve times for the deluxe waffle falls, from about 3 minutes in February 2026 to under 1 minute in September 2026."</span>, <span class="at">caption =</span> <span class="st">"Date Created: September 24, 2026 | Author: Tanisha Dodla"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-5"><a href="#cb8-5"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Date Game Played"</span>, <span class="at">y =</span> <span class="st">"Standard Deviation of Time (minutes)"</span>, <span class="at">title =</span> <span class="st">"Variability in Time Taken to Solve a Waffle without Extreme Outliers"</span>, <span class="at">subtitle =</span> <span class="st">"The standard deviation between solve times for the deluxe waffle falls, from about 3 minutes </span><span class="sc">\n</span><span class="st">in February 2026 to under 1 minute in September 2026."</span>, <span class="at">caption =</span> <span class="st">"Date Created: September 24, 2026 | Author: Tanisha Dodla"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <div>
 <figure class="figure"><p><img src="extra-sample1_files/figure-html/unnamed-chunk-4-2.png" class="img-fluid figure-img" width="672"></p>
@@ -1232,14 +1231,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script><nav class="page-navigation column-body"><div class="nav-page nav-page-previous">
-      <a href="../ica/06-wrangling-1-notes.html" class="pagination-link" aria-label="Wrangling Diamonds Data">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Wrangling Diamonds Data</span></span>
+      <a href="../ica/07-wrangling-2.html" class="pagination-link" aria-label="Wrangling Strings">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Wrangling Strings</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../extra/extra-sample2.html" class="pagination-link" aria-label="Extra Sample 2">
-        <span class="nav-page-text"><span class="chapter-title">Extra Sample 2</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
 <div class="sourceCode" id="cb10" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb10-1"><a href="#cb10-1"></a><span class="co">---</span></span>
@@ -1398,14 +1394,14 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb10-154"><a href="#cb10-154"></a><span class="in">  geom_line()+</span></span>
 <span id="cb10-155"><a href="#cb10-155"></a><span class="in">  theme_classic()+</span></span>
 <span id="cb10-156"><a href="#cb10-156"></a><span class="in">  scale_x_date(date_breaks = "1 month", date_labels = "%b")+</span></span>
-<span id="cb10-157"><a href="#cb10-157"></a><span class="in">  labs(x = "Date Game Played", y = "Average Time (minutes)", title = "Average Time Taken to Solve a Waffle", subtitle = "The average time to solve a deluxe waffle falls by over 50%, from about 12 minutes in January 2026 to under 6 minutes in September 2026.", caption = "Date Created: September 24, 2026 | Author: Tanisha Dodla")</span></span>
+<span id="cb10-157"><a href="#cb10-157"></a><span class="in">  labs(x = "Date Game Played", y = "Average Time (minutes)", title = "Average Time Taken to Solve a Waffle", subtitle = "The average time to solve a deluxe waffle falls by over 50%, from about 12 minutes \nin January 2026 to under 6 minutes in September 2026.", caption = "Date Created: September 24, 2026 | Author: Tanisha Dodla")</span></span>
 <span id="cb10-158"><a href="#cb10-158"></a></span>
 <span id="cb10-159"><a href="#cb10-159"></a></span>
 <span id="cb10-160"><a href="#cb10-160"></a><span class="in">ggplot(summary, aes(x = date, y = sd_time)) +</span></span>
 <span id="cb10-161"><a href="#cb10-161"></a><span class="in">  geom_line()+</span></span>
 <span id="cb10-162"><a href="#cb10-162"></a><span class="in">  theme_classic()+</span></span>
 <span id="cb10-163"><a href="#cb10-163"></a><span class="in">  scale_x_date(date_breaks = "1 month", date_labels = "%b")+</span></span>
-<span id="cb10-164"><a href="#cb10-164"></a><span class="in">  labs(x = "Date Game Played", y = "Standard Deviation of Time (minutes)", title = "Variability in Time Taken to Solve a Waffle", subtitle = "The standard deviation between solve times for the deluxe waffle falls by about 90%, from about 10 minutes in January 2026 to about 1 minute in September 2026.", caption = "Date Created: September 24, 2026 | Author: Tanisha Dodla")</span></span>
+<span id="cb10-164"><a href="#cb10-164"></a><span class="in">  labs(x = "Date Game Played", y = "Standard Deviation of Time (minutes)", title = "Variability in Time Taken to Solve a Waffle", subtitle = "The standard deviation between solve times for the deluxe waffle falls by about 90%, from about 10 minutes in \nJanuary 2026 to about 1 minute in September 2026.", caption = "Date Created: September 24, 2026 | Author: Tanisha Dodla")</span></span>
 <span id="cb10-165"><a href="#cb10-165"></a></span>
 <span id="cb10-166"><a href="#cb10-166"></a><span class="in">ggplot(waffle, aes(</span></span>
 <span id="cb10-167"><a href="#cb10-167"></a><span class="in">  x = date,</span></span>
@@ -1415,7 +1411,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb10-171"><a href="#cb10-171"></a><span class="in">  geom_line()+</span></span>
 <span id="cb10-172"><a href="#cb10-172"></a><span class="in">  theme_classic()+</span></span>
 <span id="cb10-173"><a href="#cb10-173"></a><span class="in">  scale_x_date(date_breaks = "1 month", date_labels = "%b")+</span></span>
-<span id="cb10-174"><a href="#cb10-174"></a><span class="in">  labs(x = "Date Game Played", y = "Time (minutes)", title = "Time Taken to Solve a Waffle, Colored by Round", subtitle = "The first and third rounds are the least variable; we seem to do the worst on the second round.", caption = "Date Created: September 24, 2026 | Author: Tanisha Dodla", color = "Round Played")</span></span>
+<span id="cb10-174"><a href="#cb10-174"></a><span class="in">  labs(x = "Date Game Played", y = "Time (minutes)", title = "Time Taken to Solve a Waffle, Colored by Round", subtitle = "The first and third rounds are the least variable; \nwe seem to do the worst on the second round.", caption = "Date Created: September 24, 2026 | Author: Tanisha Dodla", color = "Round Played")</span></span>
 <span id="cb10-175"><a href="#cb10-175"></a></span>
 <span id="cb10-176"><a href="#cb10-176"></a><span class="in">```</span></span>
 <span id="cb10-177"><a href="#cb10-177"></a><span class="fu">### Graphing without Outliers</span></span>
@@ -1430,14 +1426,14 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb10-186"><a href="#cb10-186"></a><span class="in">  geom_line()+</span></span>
 <span id="cb10-187"><a href="#cb10-187"></a><span class="in">  theme_classic()+</span></span>
 <span id="cb10-188"><a href="#cb10-188"></a><span class="in">  scale_x_date(date_breaks = "1 month", date_labels = "%b")+</span></span>
-<span id="cb10-189"><a href="#cb10-189"></a><span class="in">  labs(x = "Date Game Played", y = "Average Time (minutes)", title = "Average Time Taken to Solve a Waffle Without Extreme Outliers", subtitle = "The average time stays roughly the same, from about 5 minutes in January 2026 to just under 5 minutes in September 2026.", caption = "Date Created: September 24, 2026 | Author: Tanisha Dodla")</span></span>
+<span id="cb10-189"><a href="#cb10-189"></a><span class="in">  labs(x = "Date Game Played", y = "Average Time (minutes)", title = "Average Time Taken to Solve a Waffle Without Extreme Outliers", subtitle = "The average time stays roughly the same, from about 5 minutes \nin January 2026 to just under 5 minutes in September 2026.", caption = "Date Created: September 24, 2026 | Author: Tanisha Dodla")</span></span>
 <span id="cb10-190"><a href="#cb10-190"></a></span>
 <span id="cb10-191"><a href="#cb10-191"></a></span>
 <span id="cb10-192"><a href="#cb10-192"></a><span class="in">ggplot(summary_new, aes(x = date, y = sd_time)) +</span></span>
 <span id="cb10-193"><a href="#cb10-193"></a><span class="in">  geom_line()+</span></span>
 <span id="cb10-194"><a href="#cb10-194"></a><span class="in">  theme_classic()+</span></span>
 <span id="cb10-195"><a href="#cb10-195"></a><span class="in">  scale_x_date(date_breaks = "1 month", date_labels = "%b")+</span></span>
-<span id="cb10-196"><a href="#cb10-196"></a><span class="in">  labs(x = "Date Game Played", y = "Standard Deviation of Time (minutes)", title = "Variability in Time Taken to Solve a Waffle without Extreme Outliers", subtitle = "The standard deviation between solve times for the deluxe waffle falls, from about 3 minutes in February 2026 to under 1 minute in September 2026.", caption = "Date Created: September 24, 2026 | Author: Tanisha Dodla")</span></span>
+<span id="cb10-196"><a href="#cb10-196"></a><span class="in">  labs(x = "Date Game Played", y = "Standard Deviation of Time (minutes)", title = "Variability in Time Taken to Solve a Waffle without Extreme Outliers", subtitle = "The standard deviation between solve times for the deluxe waffle falls, from about 3 minutes \nin February 2026 to under 1 minute in September 2026.", caption = "Date Created: September 24, 2026 | Author: Tanisha Dodla")</span></span>
 <span id="cb10-197"><a href="#cb10-197"></a></span>
 <span id="cb10-198"><a href="#cb10-198"></a><span class="in">ggplot(waffle_new, aes(</span></span>
 <span id="cb10-199"><a href="#cb10-199"></a><span class="in">  x = date,</span></span>
