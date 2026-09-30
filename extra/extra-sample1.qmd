@@ -176,7 +176,7 @@ ggplot(waffle, aes(
 ```
 ### Graphing without Outliers
 
-These next three graphs show a more stable trend: we don't seem to be doing any better, but we also don't seem to be doing any worse. If anything, we seem to be more consistently doing just medium. 
+When we remove an outlier time of 19 minutes spent in January 2026 (using the IQR method, but with a tolerance of 3 instead of 1.5), we get very different results. These next three graphs show a more stable trend: we don't seem to be doing any better, but we also don't seem to be doing any worse. If anything, we seem to be more consistently doing just medium. 
 
 
 ```{r, warning = FALSE}

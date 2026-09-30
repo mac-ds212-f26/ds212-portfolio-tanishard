@@ -23,3 +23,8 @@ title: "Pre-Class Learning Summaries"
 
 ![](pcl5.png)
 
+
+## Missing Data
+
+![](pcl6.png)
+
