@@ -70,3 +70,4 @@ _freeze/
 *.log
 *.aux
 *.toc
+/extra
