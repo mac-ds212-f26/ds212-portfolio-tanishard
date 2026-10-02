@@ -28,3 +28,7 @@ title: "Pre-Class Learning Summaries"
 
 ![](pcl6.png)
 
+
+## Functions
+
+![](pcl7.png)
