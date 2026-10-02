@@ -59,7 +59,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../extra/extra-sample1.html" rel="next">
+<link href="../ica/08-missing-data.html" rel="next">
 <link href="../ica/06-wrangling-1-notes.html" rel="prev">
 <script src="../site_libs/cookie-consent/cookie-consent.js"></script>
 <link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
@@ -241,6 +241,11 @@ cookieconsent.run({
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ica/07-wrangling-2.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Wrangling Strings</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/08-missing-data.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Air Quality Data</span></a>
   </div>
 </li>
       </ul>
@@ -469,8 +474,8 @@ cookieconsent.run({
 <div class="cell">
 <details class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="fu">str_view</span>(string1, <span class="at">html =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
-<div class="str_view html-widget html-fill-item" id="htmlwidget-33ba0458709ee1d4fe86" style="width:960px;height:100%;"></div>
-<script type="application/json" data-for="htmlwidget-33ba0458709ee1d4fe86">{"x":{"html":"<ul>\n  <li><pre>Record temp:<span class='special'>\t<\/span>102<\/pre><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div class="str_view html-widget html-fill-item" id="htmlwidget-05fe16fca203bfd1f4d1" style="width:960px;height:100%;"></div>
+<script type="application/json" data-for="htmlwidget-05fe16fca203bfd1f4d1">{"x":{"html":"<ul>\n  <li><pre>Record temp:<span class='special'>\t<\/span>102<\/pre><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </section><section id="combine" class="level3"><h3 class="anchored" data-anchor-id="combine">Combine</h3>
@@ -645,32 +650,32 @@ cookieconsent.run({
 <span id="cb61-2"><a href="#cb61-2"></a><span class="fu">data</span>(fruit)</span>
 <span id="cb61-3"><a href="#cb61-3"></a><span class="fu">sample</span>(fruit, <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output cell-output-stdout">
-<pre><code> [1] "canary melon" "star fruit"   "persimmon"    "rambutan"     "honeydew"    
- [6] "cranberry"    "eggplant"     "fig"          "damson"       "feijoa"      </code></pre>
+<pre><code> [1] "chili pepper" "salal berry"  "bell pepper"  "avocado"      "rambutan"    
+ [6] "pineapple"    "guava"        "grape"        "fig"          "olive"       </code></pre>
 </div>
 </div>
 <div class="cell">
 <details class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb63"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1"></a><span class="fu">data</span>(words)</span>
 <span id="cb63-2"><a href="#cb63-2"></a><span class="fu">sample</span>(words, <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output cell-output-stdout">
-<pre><code> [1] "print"    "summer"   "fact"     "remember" "give"     "occasion"
- [7] "both"     "glass"    "forget"   "father"  </code></pre>
+<pre><code> [1] "Christmas" "follow"    "design"    "great"     "hullo"     "company"  
+ [7] "future"    "off"       "france"    "perfect"  </code></pre>
 </div>
 </div>
 <div class="cell">
 <details class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb65"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1"></a><span class="fu">data</span>(sentences)</span>
 <span id="cb65-2"><a href="#cb65-2"></a><span class="fu">sample</span>(sentences, <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output cell-output-stdout">
-<pre><code> [1] "Pink clouds floated with the breeze."       
- [2] "Crouch before you jump or miss the mark."   
- [3] "The way to save money is not to spend much."
- [4] "Burn peat after the logs give out."         
- [5] "Nine rows of soldiers stood in a line."     
- [6] "Tear a thin sheet from the yellow pad."     
- [7] "A gold ring will please most any girl."     
- [8] "Pick a card and slip it under the pack."    
- [9] "Tack the strip of carpet to the worn floor."
-[10] "The salt breeze came across from the sea."  </code></pre>
+<pre><code> [1] "A round mat will cover the dull spot."           
+ [2] "Sit on the perch and tell the others what to do."
+ [3] "The child almost hurt the small dog."            
+ [4] "Clams are small, round, soft, and tasty."        
+ [5] "The straw nest housed five robins."              
+ [6] "The grass curled around the fence post."         
+ [7] "A cloud of dust stung his tender eyes."          
+ [8] "Bottles hold four kinds of rum."                 
+ [9] "An abrupt start does not win the prize."         
+[10] "The long journey home took a year."              </code></pre>
 </div>
 </div>
 <p>We can use <code>str_view()</code> with the <code>pattern</code> argument to see what parts of a string match the regex supplied in the <code>pattern</code> argument. (Matches are enclosed in <code>&lt;&gt;</code>.)</p>
@@ -1535,8 +1540,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../extra/extra-sample1.html" class="pagination-link" aria-label="Am I Actually Getting Better at the Waffle?">
-        <span class="nav-page-text"><span class="chapter-title">Am I Actually Getting Better at the Waffle?</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../ica/08-missing-data.html" class="pagination-link" aria-label="Air Quality Data">
+        <span class="nav-page-text"><span class="chapter-title">Air Quality Data</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
