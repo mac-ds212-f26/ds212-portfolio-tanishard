@@ -248,6 +248,11 @@ cookieconsent.run({
   <a href="../ica/08-missing-data.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Air Quality Data</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/09-functions.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Functions and Diamonds</span></a>
+  </div>
+</li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -474,8 +479,8 @@ cookieconsent.run({
 <div class="cell">
 <details class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="fu">str_view</span>(string1, <span class="at">html =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
-<div class="str_view html-widget html-fill-item" id="htmlwidget-37207cecf9f58bba8de3" style="width:960px;height:100%;"></div>
-<script type="application/json" data-for="htmlwidget-37207cecf9f58bba8de3">{"x":{"html":"<ul>\n  <li><pre>Record temp:<span class='special'>\t<\/span>102<\/pre><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div class="str_view html-widget html-fill-item" id="htmlwidget-4f484b3343ec2bcf0101" style="width:960px;height:100%;"></div>
+<script type="application/json" data-for="htmlwidget-4f484b3343ec2bcf0101">{"x":{"html":"<ul>\n  <li><pre>Record temp:<span class='special'>\t<\/span>102<\/pre><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </section><section id="combine" class="level3"><h3 class="anchored" data-anchor-id="combine">Combine</h3>
@@ -650,32 +655,34 @@ cookieconsent.run({
 <span id="cb61-2"><a href="#cb61-2"></a><span class="fu">data</span>(fruit)</span>
 <span id="cb61-3"><a href="#cb61-3"></a><span class="fu">sample</span>(fruit, <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output cell-output-stdout">
-<pre><code> [1] "feijoa"      "boysenberry" "quince"      "pomelo"      "cranberry"  
- [6] "clementine"  "satsuma"     "star fruit"  "currant"     "banana"     </code></pre>
+<pre><code> [1] "apricot"           "currant"           "jackfruit"        
+ [4] "raisin"            "purple mangosteen" "nectarine"        
+ [7] "coconut"           "banana"            "papaya"           
+[10] "bell pepper"      </code></pre>
 </div>
 </div>
 <div class="cell">
 <details class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb63"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1"></a><span class="fu">data</span>(words)</span>
 <span id="cb63-2"><a href="#cb63-2"></a><span class="fu">sample</span>(words, <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output cell-output-stdout">
-<pre><code> [1] "suggest" "travel"  "grand"   "you"     "employ"  "car"     "boat"   
- [8] "game"    "blue"    "certain"</code></pre>
+<pre><code> [1] "two"      "minus"    "practise" "though"   "project"  "hell"    
+ [7] "law"      "college"  "such"     "where"   </code></pre>
 </div>
 </div>
 <div class="cell">
 <details class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb65"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1"></a><span class="fu">data</span>(sentences)</span>
 <span id="cb65-2"><a href="#cb65-2"></a><span class="fu">sample</span>(sentences, <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output cell-output-stdout">
-<pre><code> [1] "They took the axe and the saw to the forest."
- [2] "The hinge on the door creaked with old age." 
- [3] "Shape the clay gently into block form."      
- [4] "This strong arm shall shield your honor."    
- [5] "Pack the records in a neat thin case."       
- [6] "Weave the carpet on the right hand side."    
- [7] "The duke left the park in a silver coach."   
- [8] "Tuck the sheet under the edge of the mat."   
- [9] "The pipe ran almost the length of the ditch."
-[10] "The rush for funds reached its peak Tuesday."</code></pre>
+<pre><code> [1] "We talked of the side show in the circus."       
+ [2] "Clams are small, round, soft, and tasty."        
+ [3] "The bill was paid every third week."             
+ [4] "Cats and Dogs each hate the other."              
+ [5] "The first part of the plan needs changing."      
+ [6] "Write fast if you want to finish early."         
+ [7] "Footprints showed the path he took up the beach."
+ [8] "Jump the fence and hurry up the bank."           
+ [9] "The night shift men rate extra pay."             
+[10] "It takes a lot of help to finish these."         </code></pre>
 </div>
 </div>
 <p>We can use <code>str_view()</code> with the <code>pattern</code> argument to see what parts of a string match the regex supplied in the <code>pattern</code> argument. (Matches are enclosed in <code>&lt;&gt;</code>.)</p>
