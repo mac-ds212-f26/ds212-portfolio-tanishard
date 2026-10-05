@@ -32,3 +32,8 @@ title: "Pre-Class Learning Summaries"
 ## Functions
 
 ![](pcl7.png)
+
+
+## Base R
+
+![](pcl8.png)
