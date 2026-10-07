@@ -380,7 +380,7 @@ cookieconsent.run({
 <span id="cb4-2"><a href="#cb4-2"></a>total_plot <span class="ot">=</span> <span class="fu">ggplot</span>(monthly_books, <span class="fu">aes</span>(<span class="at">x =</span> month, <span class="at">y =</span> total)) <span class="sc">+</span></span>
 <span id="cb4-3"><a href="#cb4-3"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
 <span id="cb4-4"><a href="#cb4-4"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb4-5"><a href="#cb4-5"></a>  <span class="fu">scale_x_date</span>(<span class="at">date_breaks =</span> <span class="st">"1 month"</span>, <span class="at">date_labels =</span> <span class="st">"%b</span><span class="sc">\n</span><span class="st">%Y"</span>) <span class="sc">+</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a>  <span class="fu">scale_x_date</span>(<span class="at">date_breaks =</span> <span class="st">"3 months"</span>,<span class="at">date_labels =</span> <span class="st">"%b</span><span class="sc">\n</span><span class="st">%Y"</span>) <span class="sc">+</span></span>
 <span id="cb4-6"><a href="#cb4-6"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Total Books Read by Month, from January 2024 to August 2026"</span>, <span class="at">subtitle =</span> <span class="st">"I read most frequently in the summer; My most read genres are romance and fantasy"</span>, <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
 <span id="cb4-7"><a href="#cb4-7"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
 <span id="cb4-8"><a href="#cb4-8"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_blank</span>(),<span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>(), <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>))</span>
@@ -389,37 +389,36 @@ cookieconsent.run({
 <span id="cb4-11"><a href="#cb4-11"></a>genre_plot <span class="ot">=</span> <span class="fu">ggplot</span>(monthly_books_long, <span class="fu">aes</span>(<span class="at">x =</span> month, <span class="at">y =</span> books, <span class="at">color =</span> genre)) <span class="sc">+</span></span>
 <span id="cb4-12"><a href="#cb4-12"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="dv">1</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
 <span id="cb4-13"><a href="#cb4-13"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
-<span id="cb4-14"><a href="#cb4-14"></a>  <span class="fu">scale_x_date</span>(<span class="at">date_breaks =</span> <span class="st">"1 month"</span>,</span>
-<span id="cb4-15"><a href="#cb4-15"></a>    <span class="at">date_labels =</span> <span class="st">"%b</span><span class="sc">\n</span><span class="st">%Y"</span>) <span class="sc">+</span></span>
-<span id="cb4-16"><a href="#cb4-16"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Books Read by Month, Separated by Genre"</span>, <span class="at">caption =</span> <span class="st">"Date Created: September 29, 2026 | Author: Tanisha | Data: StoryGraph"</span>, <span class="at">y =</span> <span class="cn">NULL</span>, <span class="at">color =</span> <span class="cn">NULL</span>, <span class="at">x=</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
-<span id="cb4-17"><a href="#cb4-17"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
-<span id="cb4-18"><a href="#cb4-18"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>,<span class="at">size =</span> <span class="dv">7</span>),</span>
-<span id="cb4-19"><a href="#cb4-19"></a>      <span class="at">legend.position =</span> <span class="st">"bottom"</span>,</span>
-<span id="cb4-20"><a href="#cb4-20"></a>    <span class="at">legend.title =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb4-21"><a href="#cb4-21"></a>    <span class="at">legend.direction =</span> <span class="st">"horizontal"</span>, <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>))<span class="sc">+</span></span>
-<span id="cb4-22"><a href="#cb4-22"></a>  <span class="fu">guides</span>(<span class="at">color =</span> <span class="fu">guide_legend</span>(<span class="at">nrow =</span> <span class="dv">1</span>))</span>
-<span id="cb4-23"><a href="#cb4-23"></a></span>
-<span id="cb4-24"><a href="#cb4-24"></a><span class="co">#Combine plots </span></span>
-<span id="cb4-25"><a href="#cb4-25"></a>combined_plot <span class="ot">=</span> <span class="fu">plot_grid</span>(</span>
-<span id="cb4-26"><a href="#cb4-26"></a>  total_plot,</span>
-<span id="cb4-27"><a href="#cb4-27"></a>  genre_plot,</span>
-<span id="cb4-28"><a href="#cb4-28"></a>  <span class="at">ncol =</span> <span class="dv">1</span>,</span>
-<span id="cb4-29"><a href="#cb4-29"></a>  <span class="at">align =</span> <span class="st">"v"</span>,</span>
-<span id="cb4-30"><a href="#cb4-30"></a>  <span class="at">axis =</span> <span class="st">"lr"</span>,</span>
-<span id="cb4-31"><a href="#cb4-31"></a>  <span class="at">rel_heights =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
-<span id="cb4-32"><a href="#cb4-32"></a></span>
-<span id="cb4-33"><a href="#cb4-33"></a>final_plot <span class="ot">&lt;-</span> <span class="fu">plot_grid</span>(</span>
-<span id="cb4-34"><a href="#cb4-34"></a>  <span class="fu">ggdraw</span>() <span class="sc">+</span></span>
-<span id="cb4-35"><a href="#cb4-35"></a>    <span class="fu">draw_label</span>(</span>
-<span id="cb4-36"><a href="#cb4-36"></a>      <span class="st">"Number of Books Read"</span>,</span>
-<span id="cb4-37"><a href="#cb4-37"></a>      <span class="at">angle =</span> <span class="dv">90</span>,</span>
-<span id="cb4-38"><a href="#cb4-38"></a>      <span class="at">x =</span> <span class="fl">0.5</span>,</span>
-<span id="cb4-39"><a href="#cb4-39"></a>      <span class="at">y =</span> <span class="fl">0.65</span>, <span class="at">size =</span> <span class="dv">10</span>),</span>
-<span id="cb4-40"><a href="#cb4-40"></a>  combined_plot,</span>
-<span id="cb4-41"><a href="#cb4-41"></a>  <span class="at">ncol =</span> <span class="dv">2</span>,</span>
-<span id="cb4-42"><a href="#cb4-42"></a>  <span class="at">rel_widths =</span> <span class="fu">c</span>(<span class="fl">0.05</span>, <span class="dv">1</span>))</span>
-<span id="cb4-43"><a href="#cb4-43"></a></span>
-<span id="cb4-44"><a href="#cb4-44"></a>final_plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-14"><a href="#cb4-14"></a>  <span class="fu">scale_x_date</span>(<span class="at">date_breaks =</span> <span class="st">"3 months"</span>,<span class="at">date_labels =</span> <span class="st">"%b</span><span class="sc">\n</span><span class="st">%Y"</span>) <span class="sc">+</span></span>
+<span id="cb4-15"><a href="#cb4-15"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Books Read by Month, Separated by Genre"</span>, <span class="at">caption =</span> <span class="st">"Date Created: September 29, 2026 | Author: Tanisha Dodla | Data: StoryGraph"</span>, <span class="at">y =</span> <span class="cn">NULL</span>, <span class="at">color =</span> <span class="cn">NULL</span>, <span class="at">x=</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb4-16"><a href="#cb4-16"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb4-17"><a href="#cb4-17"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">0</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>,<span class="at">size =</span> <span class="dv">7</span>),</span>
+<span id="cb4-18"><a href="#cb4-18"></a>      <span class="at">legend.position =</span> <span class="st">"bottom"</span>,</span>
+<span id="cb4-19"><a href="#cb4-19"></a>    <span class="at">legend.title =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb4-20"><a href="#cb4-20"></a>    <span class="at">legend.direction =</span> <span class="st">"horizontal"</span>, <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>))<span class="sc">+</span></span>
+<span id="cb4-21"><a href="#cb4-21"></a>  <span class="fu">guides</span>(<span class="at">color =</span> <span class="fu">guide_legend</span>(<span class="at">nrow =</span> <span class="dv">1</span>))</span>
+<span id="cb4-22"><a href="#cb4-22"></a></span>
+<span id="cb4-23"><a href="#cb4-23"></a><span class="co">#Combine plots </span></span>
+<span id="cb4-24"><a href="#cb4-24"></a>combined_plot <span class="ot">=</span> <span class="fu">plot_grid</span>(</span>
+<span id="cb4-25"><a href="#cb4-25"></a>  total_plot,</span>
+<span id="cb4-26"><a href="#cb4-26"></a>  genre_plot,</span>
+<span id="cb4-27"><a href="#cb4-27"></a>  <span class="at">ncol =</span> <span class="dv">1</span>,</span>
+<span id="cb4-28"><a href="#cb4-28"></a>  <span class="at">align =</span> <span class="st">"v"</span>,</span>
+<span id="cb4-29"><a href="#cb4-29"></a>  <span class="at">axis =</span> <span class="st">"lr"</span>,</span>
+<span id="cb4-30"><a href="#cb4-30"></a>  <span class="at">rel_heights =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb4-31"><a href="#cb4-31"></a></span>
+<span id="cb4-32"><a href="#cb4-32"></a>final_plot <span class="ot">&lt;-</span> <span class="fu">plot_grid</span>(</span>
+<span id="cb4-33"><a href="#cb4-33"></a>  <span class="fu">ggdraw</span>() <span class="sc">+</span></span>
+<span id="cb4-34"><a href="#cb4-34"></a>    <span class="fu">draw_label</span>(</span>
+<span id="cb4-35"><a href="#cb4-35"></a>      <span class="st">"Number of Books Read"</span>,</span>
+<span id="cb4-36"><a href="#cb4-36"></a>      <span class="at">angle =</span> <span class="dv">90</span>,</span>
+<span id="cb4-37"><a href="#cb4-37"></a>      <span class="at">x =</span> <span class="fl">0.5</span>,</span>
+<span id="cb4-38"><a href="#cb4-38"></a>      <span class="at">y =</span> <span class="fl">0.65</span>, <span class="at">size =</span> <span class="dv">10</span>),</span>
+<span id="cb4-39"><a href="#cb4-39"></a>  combined_plot,</span>
+<span id="cb4-40"><a href="#cb4-40"></a>  <span class="at">ncol =</span> <span class="dv">2</span>,</span>
+<span id="cb4-41"><a href="#cb4-41"></a>  <span class="at">rel_widths =</span> <span class="fu">c</span>(<span class="fl">0.05</span>, <span class="dv">1</span>))</span>
+<span id="cb4-42"><a href="#cb4-42"></a></span>
+<span id="cb4-43"><a href="#cb4-43"></a>final_plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <div>
 <figure class="figure"><p><img src="pvj-01_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
@@ -1235,7 +1234,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb6-101"><a href="#cb6-101"></a><span class="in">total_plot = ggplot(monthly_books, aes(x = month, y = total)) +</span></span>
 <span id="cb6-102"><a href="#cb6-102"></a><span class="in">  geom_line(linewidth = 1.2) +</span></span>
 <span id="cb6-103"><a href="#cb6-103"></a><span class="in">  geom_point(size = 2) +</span></span>
-<span id="cb6-104"><a href="#cb6-104"></a><span class="in">  scale_x_date(date_breaks = "1 month", date_labels = "%b\n%Y") +</span></span>
+<span id="cb6-104"><a href="#cb6-104"></a><span class="in">  scale_x_date(date_breaks = "3 months",date_labels = "%b\n%Y") +</span></span>
 <span id="cb6-105"><a href="#cb6-105"></a><span class="in">  labs(title = "Total Books Read by Month, from January 2024 to August 2026", subtitle = "I read most frequently in the summer; My most read genres are romance and fantasy", x = NULL, y = NULL) +</span></span>
 <span id="cb6-106"><a href="#cb6-106"></a><span class="in">  theme_classic() +</span></span>
 <span id="cb6-107"><a href="#cb6-107"></a><span class="in">  theme(axis.text.x = element_blank(),axis.ticks.x = element_blank(), plot.title = element_text(size = 14))</span></span>
@@ -1244,115 +1243,116 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb6-110"><a href="#cb6-110"></a><span class="in">genre_plot = ggplot(monthly_books_long, aes(x = month, y = books, color = genre)) +</span></span>
 <span id="cb6-111"><a href="#cb6-111"></a><span class="in">  geom_line(linewidth = 1, alpha = 0.7) +</span></span>
 <span id="cb6-112"><a href="#cb6-112"></a><span class="in">  geom_point(size = 2, alpha = 0.7) +</span></span>
-<span id="cb6-113"><a href="#cb6-113"></a><span class="in">  scale_x_date(date_breaks = "1 month",</span></span>
-<span id="cb6-114"><a href="#cb6-114"></a><span class="in">    date_labels = "%b\n%Y") +</span></span>
-<span id="cb6-115"><a href="#cb6-115"></a><span class="in">  labs(title = "Books Read by Month, Separated by Genre", caption = "Date Created: September 29, 2026 | Author: Tanisha | Data: StoryGraph", y = NULL, color = NULL, x= NULL) +</span></span>
-<span id="cb6-116"><a href="#cb6-116"></a><span class="in">  theme_classic() +</span></span>
-<span id="cb6-117"><a href="#cb6-117"></a><span class="in">  theme(axis.text.x = element_text(angle = 45, hjust = 1,size = 7),</span></span>
-<span id="cb6-118"><a href="#cb6-118"></a><span class="in">      legend.position = "bottom",</span></span>
-<span id="cb6-119"><a href="#cb6-119"></a><span class="in">    legend.title = element_blank(),</span></span>
-<span id="cb6-120"><a href="#cb6-120"></a><span class="in">    legend.direction = "horizontal", plot.title = element_text(size = 14))+</span></span>
-<span id="cb6-121"><a href="#cb6-121"></a><span class="in">  guides(color = guide_legend(nrow = 1))</span></span>
-<span id="cb6-122"><a href="#cb6-122"></a></span>
-<span id="cb6-123"><a href="#cb6-123"></a><span class="in">#Combine plots </span></span>
-<span id="cb6-124"><a href="#cb6-124"></a><span class="in">combined_plot = plot_grid(</span></span>
-<span id="cb6-125"><a href="#cb6-125"></a><span class="in">  total_plot,</span></span>
-<span id="cb6-126"><a href="#cb6-126"></a><span class="in">  genre_plot,</span></span>
-<span id="cb6-127"><a href="#cb6-127"></a><span class="in">  ncol = 1,</span></span>
-<span id="cb6-128"><a href="#cb6-128"></a><span class="in">  align = "v",</span></span>
-<span id="cb6-129"><a href="#cb6-129"></a><span class="in">  axis = "lr",</span></span>
-<span id="cb6-130"><a href="#cb6-130"></a><span class="in">  rel_heights = c(1, 2))</span></span>
-<span id="cb6-131"><a href="#cb6-131"></a></span>
-<span id="cb6-132"><a href="#cb6-132"></a><span class="in">final_plot &lt;- plot_grid(</span></span>
-<span id="cb6-133"><a href="#cb6-133"></a><span class="in">  ggdraw() +</span></span>
-<span id="cb6-134"><a href="#cb6-134"></a><span class="in">    draw_label(</span></span>
-<span id="cb6-135"><a href="#cb6-135"></a><span class="in">      "Number of Books Read",</span></span>
-<span id="cb6-136"><a href="#cb6-136"></a><span class="in">      angle = 90,</span></span>
-<span id="cb6-137"><a href="#cb6-137"></a><span class="in">      x = 0.5,</span></span>
-<span id="cb6-138"><a href="#cb6-138"></a><span class="in">      y = 0.65, size = 10),</span></span>
-<span id="cb6-139"><a href="#cb6-139"></a><span class="in">  combined_plot,</span></span>
-<span id="cb6-140"><a href="#cb6-140"></a><span class="in">  ncol = 2,</span></span>
-<span id="cb6-141"><a href="#cb6-141"></a><span class="in">  rel_widths = c(0.05, 1))</span></span>
-<span id="cb6-142"><a href="#cb6-142"></a></span>
-<span id="cb6-143"><a href="#cb6-143"></a><span class="in">final_plot</span></span>
-<span id="cb6-144"><a href="#cb6-144"></a><span class="in">```</span></span>
+<span id="cb6-113"><a href="#cb6-113"></a><span class="in">  scale_x_date(date_breaks = "3 months",date_labels = "%b\n%Y") +</span></span>
+<span id="cb6-114"><a href="#cb6-114"></a><span class="in">  labs(title = "Books Read by Month, Separated by Genre", caption = "Date Created: September 29, 2026 | Author: Tanisha Dodla | Data: StoryGraph", y = NULL, color = NULL, x= NULL) +</span></span>
+<span id="cb6-115"><a href="#cb6-115"></a><span class="in">  theme_classic() +</span></span>
+<span id="cb6-116"><a href="#cb6-116"></a><span class="in">  theme(axis.text.x = element_text(angle = 0, hjust = 0.5,size = 7),</span></span>
+<span id="cb6-117"><a href="#cb6-117"></a><span class="in">      legend.position = "bottom",</span></span>
+<span id="cb6-118"><a href="#cb6-118"></a><span class="in">    legend.title = element_blank(),</span></span>
+<span id="cb6-119"><a href="#cb6-119"></a><span class="in">    legend.direction = "horizontal", plot.title = element_text(size = 14))+</span></span>
+<span id="cb6-120"><a href="#cb6-120"></a><span class="in">  guides(color = guide_legend(nrow = 1))</span></span>
+<span id="cb6-121"><a href="#cb6-121"></a></span>
+<span id="cb6-122"><a href="#cb6-122"></a><span class="in">#Combine plots </span></span>
+<span id="cb6-123"><a href="#cb6-123"></a><span class="in">combined_plot = plot_grid(</span></span>
+<span id="cb6-124"><a href="#cb6-124"></a><span class="in">  total_plot,</span></span>
+<span id="cb6-125"><a href="#cb6-125"></a><span class="in">  genre_plot,</span></span>
+<span id="cb6-126"><a href="#cb6-126"></a><span class="in">  ncol = 1,</span></span>
+<span id="cb6-127"><a href="#cb6-127"></a><span class="in">  align = "v",</span></span>
+<span id="cb6-128"><a href="#cb6-128"></a><span class="in">  axis = "lr",</span></span>
+<span id="cb6-129"><a href="#cb6-129"></a><span class="in">  rel_heights = c(1, 2))</span></span>
+<span id="cb6-130"><a href="#cb6-130"></a></span>
+<span id="cb6-131"><a href="#cb6-131"></a><span class="in">final_plot &lt;- plot_grid(</span></span>
+<span id="cb6-132"><a href="#cb6-132"></a><span class="in">  ggdraw() +</span></span>
+<span id="cb6-133"><a href="#cb6-133"></a><span class="in">    draw_label(</span></span>
+<span id="cb6-134"><a href="#cb6-134"></a><span class="in">      "Number of Books Read",</span></span>
+<span id="cb6-135"><a href="#cb6-135"></a><span class="in">      angle = 90,</span></span>
+<span id="cb6-136"><a href="#cb6-136"></a><span class="in">      x = 0.5,</span></span>
+<span id="cb6-137"><a href="#cb6-137"></a><span class="in">      y = 0.65, size = 10),</span></span>
+<span id="cb6-138"><a href="#cb6-138"></a><span class="in">  combined_plot,</span></span>
+<span id="cb6-139"><a href="#cb6-139"></a><span class="in">  ncol = 2,</span></span>
+<span id="cb6-140"><a href="#cb6-140"></a><span class="in">  rel_widths = c(0.05, 1))</span></span>
+<span id="cb6-141"><a href="#cb6-141"></a></span>
+<span id="cb6-142"><a href="#cb6-142"></a><span class="in">final_plot</span></span>
+<span id="cb6-143"><a href="#cb6-143"></a><span class="in">```</span></span>
+<span id="cb6-144"><a href="#cb6-144"></a></span>
 <span id="cb6-145"><a href="#cb6-145"></a></span>
-<span id="cb6-146"><a href="#cb6-146"></a><span class="fu">### Genres by pages</span></span>
-<span id="cb6-147"><a href="#cb6-147"></a></span>
-<span id="cb6-148"><a href="#cb6-148"></a>I read mostly romance books, followed by fantasy. </span>
-<span id="cb6-149"><a href="#cb6-149"></a></span>
+<span id="cb6-146"><a href="#cb6-146"></a></span>
+<span id="cb6-147"><a href="#cb6-147"></a><span class="fu">### Genres by pages</span></span>
+<span id="cb6-148"><a href="#cb6-148"></a></span>
+<span id="cb6-149"><a href="#cb6-149"></a>I read mostly romance books, followed by fantasy. </span>
 <span id="cb6-150"><a href="#cb6-150"></a></span>
-<span id="cb6-151"><a href="#cb6-151"></a><span class="in">```{r, warning=FALSE, width = 20}</span></span>
-<span id="cb6-152"><a href="#cb6-152"></a><span class="in">#| code-fold: true</span></span>
-<span id="cb6-153"><a href="#cb6-153"></a><span class="in">#| code-summary: "Genre Bar Plot Code"</span></span>
-<span id="cb6-154"><a href="#cb6-154"></a></span>
-<span id="cb6-155"><a href="#cb6-155"></a><span class="in">#Number of books by genre</span></span>
-<span id="cb6-156"><a href="#cb6-156"></a><span class="in">genre_bar = books %&gt;%</span></span>
-<span id="cb6-157"><a href="#cb6-157"></a><span class="in">  summarise(</span></span>
-<span id="cb6-158"><a href="#cb6-158"></a><span class="in">    Fantasy = sum(genre_1 == "Fantasy" | genre_2 == "Fantasy", na.rm = TRUE),</span></span>
-<span id="cb6-159"><a href="#cb6-159"></a><span class="in">    Romance = sum(genre_1 == "Romance" | genre_2 == "Romance", na.rm = TRUE),</span></span>
-<span id="cb6-160"><a href="#cb6-160"></a><span class="in">    Contemporary = sum(genre_1 == "Contemporary" | genre_2 == "Contemporary", na.rm = TRUE),</span></span>
-<span id="cb6-161"><a href="#cb6-161"></a><span class="in">    Crime = sum(genre_1 == "Crime" | genre_2 == "Crime", na.rm = TRUE),</span></span>
-<span id="cb6-162"><a href="#cb6-162"></a><span class="in">    Mystery = sum(genre_1 == "Mystery" | genre_2 == "Mystery", na.rm = TRUE),</span></span>
-<span id="cb6-163"><a href="#cb6-163"></a><span class="in">    Sports = sum(genre_1 == "Sports" | genre_2 == "Sports", na.rm = TRUE))%&gt;%</span></span>
-<span id="cb6-164"><a href="#cb6-164"></a><span class="in">  pivot_longer(cols = everything(), names_to = "genre", values_to = "books")</span></span>
-<span id="cb6-165"><a href="#cb6-165"></a></span>
-<span id="cb6-166"><a href="#cb6-166"></a><span class="in">#Number of pages by genre</span></span>
-<span id="cb6-167"><a href="#cb6-167"></a><span class="in">genre_pages = books %&gt;%</span></span>
-<span id="cb6-168"><a href="#cb6-168"></a><span class="in">  summarise(Fantasy = sum(pages[genre_1 == "Fantasy" | genre_2 == "Fantasy"], na.rm = TRUE),</span></span>
-<span id="cb6-169"><a href="#cb6-169"></a><span class="in">            Romance = sum(pages[genre_1 == "Romance" | genre_2 == "Romance"], na.rm = TRUE),</span></span>
-<span id="cb6-170"><a href="#cb6-170"></a><span class="in">            Contemporary = sum(pages[genre_1 == "Contemporary" | genre_2 == "Contemporary"], na.rm = TRUE),</span></span>
-<span id="cb6-171"><a href="#cb6-171"></a><span class="in">            Crime = sum(pages[genre_1 == "Crime" | genre_2 == "Crime"], na.rm = TRUE),</span></span>
-<span id="cb6-172"><a href="#cb6-172"></a><span class="in">            Mystery = sum(pages[genre_1 == "Mystery" | genre_2 == "Mystery"], na.rm = TRUE),</span></span>
-<span id="cb6-173"><a href="#cb6-173"></a><span class="in">            Sports = sum(pages[genre_1 == "Sports" | genre_2 == "Sports"], na.rm = TRUE)) %&gt;%</span></span>
-<span id="cb6-174"><a href="#cb6-174"></a><span class="in">  pivot_longer(cols = everything(), names_to = "genre", values_to = "pages")</span></span>
-<span id="cb6-175"><a href="#cb6-175"></a></span>
+<span id="cb6-151"><a href="#cb6-151"></a></span>
+<span id="cb6-152"><a href="#cb6-152"></a><span class="in">```{r, warning=FALSE, width = 20}</span></span>
+<span id="cb6-153"><a href="#cb6-153"></a><span class="in">#| code-fold: true</span></span>
+<span id="cb6-154"><a href="#cb6-154"></a><span class="in">#| code-summary: "Genre Bar Plot Code"</span></span>
+<span id="cb6-155"><a href="#cb6-155"></a></span>
+<span id="cb6-156"><a href="#cb6-156"></a><span class="in">#Number of books by genre</span></span>
+<span id="cb6-157"><a href="#cb6-157"></a><span class="in">genre_bar = books %&gt;%</span></span>
+<span id="cb6-158"><a href="#cb6-158"></a><span class="in">  summarise(</span></span>
+<span id="cb6-159"><a href="#cb6-159"></a><span class="in">    Fantasy = sum(genre_1 == "Fantasy" | genre_2 == "Fantasy", na.rm = TRUE),</span></span>
+<span id="cb6-160"><a href="#cb6-160"></a><span class="in">    Romance = sum(genre_1 == "Romance" | genre_2 == "Romance", na.rm = TRUE),</span></span>
+<span id="cb6-161"><a href="#cb6-161"></a><span class="in">    Contemporary = sum(genre_1 == "Contemporary" | genre_2 == "Contemporary", na.rm = TRUE),</span></span>
+<span id="cb6-162"><a href="#cb6-162"></a><span class="in">    Crime = sum(genre_1 == "Crime" | genre_2 == "Crime", na.rm = TRUE),</span></span>
+<span id="cb6-163"><a href="#cb6-163"></a><span class="in">    Mystery = sum(genre_1 == "Mystery" | genre_2 == "Mystery", na.rm = TRUE),</span></span>
+<span id="cb6-164"><a href="#cb6-164"></a><span class="in">    Sports = sum(genre_1 == "Sports" | genre_2 == "Sports", na.rm = TRUE))%&gt;%</span></span>
+<span id="cb6-165"><a href="#cb6-165"></a><span class="in">  pivot_longer(cols = everything(), names_to = "genre", values_to = "books")</span></span>
+<span id="cb6-166"><a href="#cb6-166"></a></span>
+<span id="cb6-167"><a href="#cb6-167"></a><span class="in">#Number of pages by genre</span></span>
+<span id="cb6-168"><a href="#cb6-168"></a><span class="in">genre_pages = books %&gt;%</span></span>
+<span id="cb6-169"><a href="#cb6-169"></a><span class="in">  summarise(Fantasy = sum(pages[genre_1 == "Fantasy" | genre_2 == "Fantasy"], na.rm = TRUE),</span></span>
+<span id="cb6-170"><a href="#cb6-170"></a><span class="in">            Romance = sum(pages[genre_1 == "Romance" | genre_2 == "Romance"], na.rm = TRUE),</span></span>
+<span id="cb6-171"><a href="#cb6-171"></a><span class="in">            Contemporary = sum(pages[genre_1 == "Contemporary" | genre_2 == "Contemporary"], na.rm = TRUE),</span></span>
+<span id="cb6-172"><a href="#cb6-172"></a><span class="in">            Crime = sum(pages[genre_1 == "Crime" | genre_2 == "Crime"], na.rm = TRUE),</span></span>
+<span id="cb6-173"><a href="#cb6-173"></a><span class="in">            Mystery = sum(pages[genre_1 == "Mystery" | genre_2 == "Mystery"], na.rm = TRUE),</span></span>
+<span id="cb6-174"><a href="#cb6-174"></a><span class="in">            Sports = sum(pages[genre_1 == "Sports" | genre_2 == "Sports"], na.rm = TRUE)) %&gt;%</span></span>
+<span id="cb6-175"><a href="#cb6-175"></a><span class="in">  pivot_longer(cols = everything(), names_to = "genre", values_to = "pages")</span></span>
 <span id="cb6-176"><a href="#cb6-176"></a></span>
-<span id="cb6-177"><a href="#cb6-177"></a><span class="in">#merge on genre</span></span>
-<span id="cb6-178"><a href="#cb6-178"></a><span class="in">genre_data = genre_bar %&gt;%</span></span>
-<span id="cb6-179"><a href="#cb6-179"></a><span class="in">  left_join(genre_pages, by = "genre")</span></span>
-<span id="cb6-180"><a href="#cb6-180"></a></span>
-<span id="cb6-181"><a href="#cb6-181"></a><span class="in">genre_bar_long = genre_data %&gt;%</span></span>
-<span id="cb6-182"><a href="#cb6-182"></a><span class="in">  select(genre, books, pages) %&gt;%</span></span>
-<span id="cb6-183"><a href="#cb6-183"></a><span class="in">  pivot_longer(cols = c(books, pages), names_to = "measure", values_to = "value")</span></span>
-<span id="cb6-184"><a href="#cb6-184"></a></span>
-<span id="cb6-185"><a href="#cb6-185"></a><span class="in"># Find a scaling factor between pages and books</span></span>
-<span id="cb6-186"><a href="#cb6-186"></a><span class="in">scale_factor &lt;- max(genre_data$pages) / max(genre_data$books)</span></span>
-<span id="cb6-187"><a href="#cb6-187"></a></span>
-<span id="cb6-188"><a href="#cb6-188"></a><span class="in">ggplot(genre_data, aes(x = genre)) +</span></span>
-<span id="cb6-189"><a href="#cb6-189"></a><span class="in">  </span></span>
-<span id="cb6-190"><a href="#cb6-190"></a><span class="in">  # Books</span></span>
-<span id="cb6-191"><a href="#cb6-191"></a><span class="in">  geom_col(</span></span>
-<span id="cb6-192"><a href="#cb6-192"></a><span class="in">    aes(y = books, fill = "Books"),</span></span>
-<span id="cb6-193"><a href="#cb6-193"></a><span class="in">    position = position_nudge(x = -0.2),</span></span>
-<span id="cb6-194"><a href="#cb6-194"></a><span class="in">    width = 0.35</span></span>
-<span id="cb6-195"><a href="#cb6-195"></a><span class="in">  ) +</span></span>
-<span id="cb6-196"><a href="#cb6-196"></a><span class="in">  </span></span>
-<span id="cb6-197"><a href="#cb6-197"></a><span class="in">  # Pages, scaled to book axis</span></span>
-<span id="cb6-198"><a href="#cb6-198"></a><span class="in">  geom_col(</span></span>
-<span id="cb6-199"><a href="#cb6-199"></a><span class="in">    aes(y = pages / scale_factor, fill = "Pages"),</span></span>
-<span id="cb6-200"><a href="#cb6-200"></a><span class="in">    position = position_nudge(x = 0.2),</span></span>
-<span id="cb6-201"><a href="#cb6-201"></a><span class="in">    width = 0.35</span></span>
-<span id="cb6-202"><a href="#cb6-202"></a><span class="in">  ) +</span></span>
-<span id="cb6-203"><a href="#cb6-203"></a><span class="in">  </span></span>
-<span id="cb6-204"><a href="#cb6-204"></a><span class="in">  scale_y_continuous(</span></span>
-<span id="cb6-205"><a href="#cb6-205"></a><span class="in">    name = "Number of Books",</span></span>
-<span id="cb6-206"><a href="#cb6-206"></a><span class="in">    sec.axis = sec_axis(</span></span>
-<span id="cb6-207"><a href="#cb6-207"></a><span class="in">      ~ . * scale_factor,</span></span>
-<span id="cb6-208"><a href="#cb6-208"></a><span class="in">      name = "Number of Pages"</span></span>
-<span id="cb6-209"><a href="#cb6-209"></a><span class="in">    )</span></span>
-<span id="cb6-210"><a href="#cb6-210"></a><span class="in">  ) +</span></span>
-<span id="cb6-211"><a href="#cb6-211"></a><span class="in">  </span></span>
-<span id="cb6-212"><a href="#cb6-212"></a><span class="in">  labs(</span></span>
-<span id="cb6-213"><a href="#cb6-213"></a><span class="in">    title = "Books and Pages Read by Genre", subtitle = "I read mostly romance books, followed by fantasy", caption = "Date Created: September 29, 2026 | Author: Tanisha | Data: StoryGraph",</span></span>
-<span id="cb6-214"><a href="#cb6-214"></a><span class="in">    x = NULL,</span></span>
-<span id="cb6-215"><a href="#cb6-215"></a><span class="in">    fill = NULL</span></span>
-<span id="cb6-216"><a href="#cb6-216"></a><span class="in">  ) +</span></span>
-<span id="cb6-217"><a href="#cb6-217"></a><span class="in">  </span></span>
-<span id="cb6-218"><a href="#cb6-218"></a><span class="in">  theme_classic()</span></span>
-<span id="cb6-219"><a href="#cb6-219"></a><span class="in">```</span></span>
-<span id="cb6-220"><a href="#cb6-220"></a></span>
-<span id="cb6-221"><a href="#cb6-221"></a></span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+<span id="cb6-177"><a href="#cb6-177"></a></span>
+<span id="cb6-178"><a href="#cb6-178"></a><span class="in">#merge on genre</span></span>
+<span id="cb6-179"><a href="#cb6-179"></a><span class="in">genre_data = genre_bar %&gt;%</span></span>
+<span id="cb6-180"><a href="#cb6-180"></a><span class="in">  left_join(genre_pages, by = "genre")</span></span>
+<span id="cb6-181"><a href="#cb6-181"></a></span>
+<span id="cb6-182"><a href="#cb6-182"></a><span class="in">genre_bar_long = genre_data %&gt;%</span></span>
+<span id="cb6-183"><a href="#cb6-183"></a><span class="in">  select(genre, books, pages) %&gt;%</span></span>
+<span id="cb6-184"><a href="#cb6-184"></a><span class="in">  pivot_longer(cols = c(books, pages), names_to = "measure", values_to = "value")</span></span>
+<span id="cb6-185"><a href="#cb6-185"></a></span>
+<span id="cb6-186"><a href="#cb6-186"></a><span class="in"># Find a scaling factor between pages and books</span></span>
+<span id="cb6-187"><a href="#cb6-187"></a><span class="in">scale_factor &lt;- max(genre_data$pages) / max(genre_data$books)</span></span>
+<span id="cb6-188"><a href="#cb6-188"></a></span>
+<span id="cb6-189"><a href="#cb6-189"></a><span class="in">ggplot(genre_data, aes(x = genre)) +</span></span>
+<span id="cb6-190"><a href="#cb6-190"></a><span class="in">  </span></span>
+<span id="cb6-191"><a href="#cb6-191"></a><span class="in">  # Books</span></span>
+<span id="cb6-192"><a href="#cb6-192"></a><span class="in">  geom_col(</span></span>
+<span id="cb6-193"><a href="#cb6-193"></a><span class="in">    aes(y = books, fill = "Books"),</span></span>
+<span id="cb6-194"><a href="#cb6-194"></a><span class="in">    position = position_nudge(x = -0.2),</span></span>
+<span id="cb6-195"><a href="#cb6-195"></a><span class="in">    width = 0.35</span></span>
+<span id="cb6-196"><a href="#cb6-196"></a><span class="in">  ) +</span></span>
+<span id="cb6-197"><a href="#cb6-197"></a><span class="in">  </span></span>
+<span id="cb6-198"><a href="#cb6-198"></a><span class="in">  # Pages, scaled to book axis</span></span>
+<span id="cb6-199"><a href="#cb6-199"></a><span class="in">  geom_col(</span></span>
+<span id="cb6-200"><a href="#cb6-200"></a><span class="in">    aes(y = pages / scale_factor, fill = "Pages"),</span></span>
+<span id="cb6-201"><a href="#cb6-201"></a><span class="in">    position = position_nudge(x = 0.2),</span></span>
+<span id="cb6-202"><a href="#cb6-202"></a><span class="in">    width = 0.35</span></span>
+<span id="cb6-203"><a href="#cb6-203"></a><span class="in">  ) +</span></span>
+<span id="cb6-204"><a href="#cb6-204"></a><span class="in">  </span></span>
+<span id="cb6-205"><a href="#cb6-205"></a><span class="in">  scale_y_continuous(</span></span>
+<span id="cb6-206"><a href="#cb6-206"></a><span class="in">    name = "Number of Books",</span></span>
+<span id="cb6-207"><a href="#cb6-207"></a><span class="in">    sec.axis = sec_axis(</span></span>
+<span id="cb6-208"><a href="#cb6-208"></a><span class="in">      ~ . * scale_factor,</span></span>
+<span id="cb6-209"><a href="#cb6-209"></a><span class="in">      name = "Number of Pages"</span></span>
+<span id="cb6-210"><a href="#cb6-210"></a><span class="in">    )</span></span>
+<span id="cb6-211"><a href="#cb6-211"></a><span class="in">  ) +</span></span>
+<span id="cb6-212"><a href="#cb6-212"></a><span class="in">  </span></span>
+<span id="cb6-213"><a href="#cb6-213"></a><span class="in">  labs(</span></span>
+<span id="cb6-214"><a href="#cb6-214"></a><span class="in">    title = "Books and Pages Read by Genre", subtitle = "I read mostly romance books, followed by fantasy", caption = "Date Created: September 29, 2026 | Author: Tanisha | Data: StoryGraph",</span></span>
+<span id="cb6-215"><a href="#cb6-215"></a><span class="in">    x = NULL,</span></span>
+<span id="cb6-216"><a href="#cb6-216"></a><span class="in">    fill = NULL</span></span>
+<span id="cb6-217"><a href="#cb6-217"></a><span class="in">  ) +</span></span>
+<span id="cb6-218"><a href="#cb6-218"></a><span class="in">  </span></span>
+<span id="cb6-219"><a href="#cb6-219"></a><span class="in">  theme_classic()</span></span>
+<span id="cb6-220"><a href="#cb6-220"></a><span class="in">```</span></span>
+<span id="cb6-221"><a href="#cb6-221"></a></span>
+<span id="cb6-222"><a href="#cb6-222"></a></span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer"><div class="nav-footer">
