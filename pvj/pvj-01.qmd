@@ -101,7 +101,7 @@ monthly_books_long = monthly_books_long%>%
 total_plot = ggplot(monthly_books, aes(x = month, y = total)) +
   geom_line(linewidth = 1.2) +
   geom_point(size = 2) +
-  scale_x_date(date_breaks = "1 month", date_labels = "%b\n%Y") +
+  scale_x_date(date_breaks = "3 months",date_labels = "%b\n%Y") +
   labs(title = "Total Books Read by Month, from January 2024 to August 2026", subtitle = "I read most frequently in the summer; My most read genres are romance and fantasy", x = NULL, y = NULL) +
   theme_classic() +
   theme(axis.text.x = element_blank(),axis.ticks.x = element_blank(), plot.title = element_text(size = 14))
@@ -110,11 +110,10 @@ total_plot = ggplot(monthly_books, aes(x = month, y = total)) +
 genre_plot = ggplot(monthly_books_long, aes(x = month, y = books, color = genre)) +
   geom_line(linewidth = 1, alpha = 0.7) +
   geom_point(size = 2, alpha = 0.7) +
-  scale_x_date(date_breaks = "1 month",
-    date_labels = "%b\n%Y") +
-  labs(title = "Books Read by Month, Separated by Genre", caption = "Date Created: September 29, 2026 | Author: Tanisha | Data: StoryGraph", y = NULL, color = NULL, x= NULL) +
+  scale_x_date(date_breaks = "3 months",date_labels = "%b\n%Y") +
+  labs(title = "Books Read by Month, Separated by Genre", caption = "Date Created: September 29, 2026 | Author: Tanisha Dodla | Data: StoryGraph", y = NULL, color = NULL, x= NULL) +
   theme_classic() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1,size = 7),
+  theme(axis.text.x = element_text(angle = 0, hjust = 0.5,size = 7),
       legend.position = "bottom",
     legend.title = element_blank(),
     legend.direction = "horizontal", plot.title = element_text(size = 14))+
@@ -142,6 +141,8 @@ final_plot <- plot_grid(
 
 final_plot
 ```
+
+
 
 ### Genres by pages
 

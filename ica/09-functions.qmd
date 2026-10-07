@@ -345,6 +345,8 @@ extract_domain <- function(email) {
 
 extract_domain(email = "trd@mac.edu")
 extract_domain(email = "trd@mac.")
+extract_domain(email = "trd@mac.net")
+
 ```
 
 
