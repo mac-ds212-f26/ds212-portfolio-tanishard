@@ -37,3 +37,7 @@ title: "Pre-Class Learning Summaries"
 ## Base R
 
 ![](pcl8.png)
+
+## Loops and Iteration I
+
+![](pcl9.png)

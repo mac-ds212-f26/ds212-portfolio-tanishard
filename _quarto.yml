@@ -81,10 +81,12 @@ book:
       - ica/07-wrangling-2.qmd
       - ica/08-missing-data.qmd
       - ica/09-functions.qmd
+      - ica/10-base-r.qmd
 
     - part: "Extras"
       chapters:
       - extra/extra-sample1.qmd
+      - extra/extra-sample2.qmd
 
 
 
