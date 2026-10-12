@@ -1,5 +1,307 @@
 ---
-title: "Extra Sample 2"
+title: "My Listening History: Spotify Data"
 ---
 
-Add content here
+
+```{r, warning=FALSE, message=FALSE}
+#| code-fold: true
+#| code-summary: "Set-up Code"
+
+#Load Packages 
+library(tidyverse)
+library(patchwork)
+library(lubridate)
+library(jsonlite)
+library(dplyr)
+
+music_0 = fromJSON("../extra/Spotify Account Data/StreamingHistory_music_0.json")
+music_1 = fromJSON("../extra/Spotify Account Data/StreamingHistory_music_1.json")
+
+music = bind_rows(music_0, music_1)
+```
+
+### Artists over Time
+
+I wanted to first look at my most listened to artists over time. There are two ways to look at this, given the data I have. I could track listening time by minutes listened, or I could track listening time by number of plays. I do both, because some tracks are longer (have longer listening times but fewer plays) and some tracks are shorter (have shorter listening times but more plays) and compare the results. 
+
+#### Listening Time
+
+```{r, warning=FALSE}
+#| code-fold: true
+#| code-summary: "Data Wrangling Code"
+
+music = music %>%
+  mutate(endTime = ymd_hm(endTime),
+    month = as.Date(floor_date(endTime, "month")),
+    minutesPlayed = msPlayed / 60000)
+
+top_artists= music %>%
+  group_by(artistName) %>%
+  summarise(total_minutes = sum(minutesPlayed, na.rm = TRUE)) %>%
+  slice_max(total_minutes, n = 10)
+
+music_top = music %>%
+  filter(artistName %in% top_artists$artistName) %>%
+  mutate(month = as.Date(floor_date(endTime, "month")))
+
+monthly_artist = music_top %>%
+  group_by(month, artistName) %>%
+  summarise(minutesPlayed = sum(minutesPlayed, na.rm = TRUE), plays = n(), .groups = "drop")
+```
+
+```{r, warning=FALSE}
+#| code-fold: true
+#| code-summary: "Graphing Code"
+
+ggplot(
+  monthly_artist,
+  aes(x = month, y = minutesPlayed, color = artistName)
+) +
+  geom_line(linewidth = 1, alpha=0.7) +
+  geom_point(size = 2, alpha = 0.7) +
+  scale_x_date(
+    date_breaks = "1 month",
+    date_labels = "%b\n%Y"
+  ) +
+  labs(
+    title = "My Listening Habits in the Last Year",
+    subtitle = "Top 10 artists by total listening time",
+    x = NULL,
+    y = "Minutes Played",
+    color = "Artist"
+  ) +
+  theme_classic()
+```
+
+From looking at my 10 most listened to artists in the last year, there is a very clear pattern of me suddenly becoming obsessed with an artist, and then gradually stop listening to them. This phenomenon seems to be most pronounced with Saint Levant, but can also be seen with Rosalía and Sasha Alex Sloan. However, if I were to have access to all of my Spotify data, this sudden spike in listening would not be super obvious (I listened to these artists, but it was more than a year ago, so this data does not reflect that). On the other hand,I listen to Pritam, Sabrina Carpenter, and Charli xcx fairly consistently, with peaks when they release new albums or singles. 
+
+#### Number of Plays 
+
+```{r, warning=FALSE}
+#| code-fold: true
+#| code-summary: "Data Wrangling Code"
+
+top_artists1 = music %>%
+  group_by(artistName) %>%
+  summarise(total_plays = n()) %>%
+  slice_max(total_plays, n = 10)
+
+music_top1 = music %>%
+  filter(artistName %in% top_artists1$artistName) %>%
+  mutate(month = as.Date(floor_date(endTime, "month")))
+
+monthly_artist1 = music_top1 %>%
+  group_by(month, artistName) %>%
+  summarise(minutesPlayed = sum(minutesPlayed, na.rm = TRUE), plays = n(), .groups = "drop")
+```
+
+
+```{r, warning=FALSE}
+#| code-fold: true
+#| code-summary: "Graphing Code"
+
+ggplot(
+  monthly_artist1,
+  aes(x = month, y = plays, color = artistName)
+) +
+  geom_line(linewidth = 1, alpha=0.7) +
+  geom_point(size = 2, alpha = 0.7) +
+  scale_x_date(
+    date_breaks = "1 month",
+    date_labels = "%b\n%Y"
+  ) +
+  labs(
+    title = "My Listening Habits in the Last Year",
+    subtitle = "Top 10 artists by number of plays",
+    x = NULL,
+    y = "Number of Plays",
+    color = "Artist"
+  ) +
+  theme_classic()
+```
+The same sudden listening followed by a gradual drop-off phenomenon is seen here too, but with slightly different artists: Saint Levant stays, but we see it this time with Rosalía and t.A.T.u. We also see some new artists here: Zara Larsson and Tate McRae make an appearrance, and Charli xcx and Brahms are no longer on the list. Rosalía being consistent in the minutes listened graph but sudden in the number of plays chart indicates to me that her songs are shorter than other songs produced by these artists (this is somewhat true, but especially true of the songs of hers that I listen to on repeat). 
+
+### Songs over Time 
+
+I do the same analysis (by listening time and number of plats), but I now do this by top 10 songs. 
+
+#### Listening Time
+
+```{r, warning=FALSE}
+#| code-fold: true
+#| code-summary: "Data Wrangling Code"
+
+top_songs = music %>%
+  group_by(trackName, artistName) %>%
+  summarise(
+    total_minutes = sum(minutesPlayed, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  slice_max(total_minutes, n = 10)
+
+music_top_songs = music %>%
+  filter(
+    paste(trackName, artistName) %in%
+      paste(top_songs$trackName, top_songs$artistName)
+  ) %>%
+  mutate(
+    month = as.Date(floor_date(endTime, "month"))
+  )
+
+monthly_song = music_top_songs %>%
+  group_by(month, trackName, artistName) %>%
+  summarise(
+    minutesPlayed = sum(minutesPlayed, na.rm = TRUE),
+    plays = n(),
+    .groups = "drop"
+  )
+```
+
+
+```{r, warning=FALSE}
+#| code-fold: true
+#| code-summary: "Graphing Code"
+
+ggplot(
+  monthly_song,
+  aes(x = month, y = minutesPlayed, color = trackName)
+) +
+  geom_line(linewidth = 1, alpha = 0.7) +
+  geom_point(size = 2, alpha = 0.7) +
+  scale_x_date(
+    date_breaks = "1 month",
+    date_labels = "%b\n%Y"
+  ) +
+  labs(
+    title = "My Listening Habits in the Last Year",
+    subtitle = "Top 10 songs by total listening time",
+    x = NULL,
+    y = "Minutes Played",
+    color = "Song"
+  ) +
+  theme_classic()
+```
+
+To no one's surprise, the same sudden listening phenomenon shows up again. The only song I listen to consistently in my top 10 is party 4 u. All the other songs (La Perla, Kids, both versions of All the Things She Said, drop dead, I told You Things, Mio Christo Piange Diamanti, Nati Nari Nari, and Samra) are songs that I suddenly started listening to. 
+
+#### Number of Plays 
+
+```{r, warning=FALSE}
+#| code-fold: true
+#| code-summary: "Data Wrangling Code"
+
+top_songs1 = music %>%
+  group_by(trackName, artistName) %>%
+  summarise(
+    total_plays = n(),
+    .groups = "drop"
+  ) %>%
+  slice_max(total_plays, n = 10)
+
+music_top_songs1 = music %>%
+  filter(
+    paste(trackName, artistName) %in%
+      paste(top_songs1$trackName, top_songs1$artistName)
+  ) %>%
+  mutate(
+    month = as.Date(floor_date(endTime, "month"))
+  )
+
+monthly_song1 = music_top_songs1 %>%
+  group_by(month, trackName, artistName) %>%
+  summarise(
+    minutesPlayed = sum(minutesPlayed, na.rm = TRUE),
+    plays = n(),
+    .groups = "drop"
+  )
+```
+
+
+```{r, warning=FALSE}
+#| code-fold: true
+#| code-summary: "Graphing Code"
+
+ggplot(
+  monthly_song1,
+  aes(x = month, y = plays, color = trackName)
+) +
+  geom_line(linewidth = 1, alpha = 0.7) +
+  geom_point(size = 2, alpha = 0.7) +
+  scale_x_date(
+    date_breaks = "1 month",
+    date_labels = "%b\n%Y"
+  ) +
+  labs(
+    title = "My Listening Habits in the Last Year",
+    subtitle = "Top 10 songs by number of plays",
+    x = NULL,
+    y = "Number of Plays",
+    color = "Song"
+  ) +
+  theme_classic()
+```
+
+Almost the exact same songs and pattern shows up here, except party 4 u is dropped and Pretty Stranger (Fouzia) is added to my top 10. 
+
+### Loops 
+
+I listen to music on repeat, so I often listen to the same song over 10 times in a row. I look at my top 20 loops, to see what songs I listen to on repeat the most.  
+
+```{r, warning=FALSE}
+#| code-fold: true
+#| code-summary: "Data Wrangling Code"
+
+music_loops = music %>%
+  mutate(song = paste(trackName, artistName, sep = " — "),
+    loop_group = cumsum(song != lag(song, default = first(song))))
+
+loops = music_loops %>%
+  group_by(loop_group, song, trackName, artistName) %>%
+  summarise(
+    loop_length = n(),
+    start_time = first(endTime),
+    end_time = last(endTime),
+    .groups = "drop"
+  ) %>%
+  filter(loop_length >= 2) %>%
+  arrange(desc(loop_length))
+```
+
+```{r, warning=FALSE}
+#| code-fold: true
+#| code-summary: "Graphing Code"
+
+loops_top20 = loops %>%
+  slice_max(loop_length, n = 20) %>%
+  arrange(loop_length) %>%
+  mutate(
+    loop_id = row_number(),
+    song_label = paste0(
+      trackName, " — ", artistName,
+      " (", loop_length, " plays)"),
+    song_label = factor(song_label, levels = song_label))
+
+ggplot(
+  loops_top20,
+  aes(x = song_label, y = loop_length)
+) +
+  geom_col(color = "white", fill="pink") +
+  coord_flip() +
+  scale_x_discrete(
+    labels = loops_top20$trackName
+  ) +
+  labs(
+    title = "My Longest Song Loops",
+    subtitle = "Longest consecutive runs of the same song",
+    x = NULL,
+    y = "Consecutive Plays"
+  ) +
+  theme_classic()
+```
+
+My longest loop is for the song Kids (Sasha Alex Sloan), which I listened to only on one day, during the entire length of two 10 hour flights. My most common loops are Samra, drop dead, la perla, and all the things she said. I think this is probably the most accurate representation of my listening style. 
+
+
+
+
+
