@@ -82,6 +82,7 @@ book:
       - ica/08-missing-data.qmd
       - ica/09-functions.qmd
       - ica/10-base-r.qmd
+      - ica/11-iteration-1.qmd
 
     - part: "Extras"
       chapters:

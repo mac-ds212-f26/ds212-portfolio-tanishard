@@ -41,3 +41,8 @@ title: "Pre-Class Learning Summaries"
 ## Loops and Iteration I
 
 ![](pcl9.png)
+
+
+## Loops and Iteration II
+
+![](pcl10.png)
