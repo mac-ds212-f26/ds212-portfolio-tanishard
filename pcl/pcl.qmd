@@ -46,3 +46,20 @@ title: "Pre-Class Learning Summaries"
 ## Loops and Iteration II
 
 ![](pcl10.png)
+
+## APIs I
+
+![](pcl11.png)
+
+
+
+## Web Scraping
+
+![](pcl12.png)
+
+
+
+## Databases and SQL
+
+![](pcl13.png)
+
