@@ -253,6 +253,26 @@ cookieconsent.run({
   <a href="../ica/09-functions.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Functions and Diamonds</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/10-base-r.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Wrangling with Base R</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/11-iteration-1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Loops and Iteration</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/12-iteration-2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">12 Iteration II</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/14-apis-2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">NYT and Census APIs</span></a>
+  </div>
+</li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -484,8 +504,8 @@ cookieconsent.run({
 <div class="cell">
 <details class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="fu">str_view</span>(string1, <span class="at">html =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
-<div class="str_view html-widget html-fill-item" id="htmlwidget-7436dc4f001820177b22" style="width:960px;height:100%;"></div>
-<script type="application/json" data-for="htmlwidget-7436dc4f001820177b22">{"x":{"html":"<ul>\n  <li><pre>Record temp:<span class='special'>\t<\/span>102<\/pre><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div class="str_view html-widget html-fill-item" id="htmlwidget-8a4588ea6ff9a466665c" style="width:960px;height:100%;"></div>
+<script type="application/json" data-for="htmlwidget-8a4588ea6ff9a466665c">{"x":{"html":"<ul>\n  <li><pre>Record temp:<span class='special'>\t<\/span>102<\/pre><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </section><section id="combine" class="level3"><h3 class="anchored" data-anchor-id="combine">Combine</h3>
@@ -660,32 +680,32 @@ cookieconsent.run({
 <span id="cb61-2"><a href="#cb61-2"></a><span class="fu">data</span>(fruit)</span>
 <span id="cb61-3"><a href="#cb61-3"></a><span class="fu">sample</span>(fruit, <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output cell-output-stdout">
-<pre><code> [1] "dragonfruit"  "canary melon" "bell pepper"  "grape"        "gooseberry"  
- [6] "passionfruit" "eggplant"     "persimmon"    "banana"       "jambul"      </code></pre>
+<pre><code> [1] "orange"      "pineapple"   "pomelo"      "durian"      "lemon"      
+ [6] "bell pepper" "mango"       "salal berry" "jujube"      "plum"       </code></pre>
 </div>
 </div>
 <div class="cell">
 <details class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb63"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1"></a><span class="fu">data</span>(words)</span>
 <span id="cb63-2"><a href="#cb63-2"></a><span class="fu">sample</span>(words, <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output cell-output-stdout">
-<pre><code> [1] "twelve"    "character" "have"      "example"   "kitchen"   "occasion" 
- [7] "point"     "about"     "quiet"     "top"      </code></pre>
+<pre><code> [1] "any"        "key"        "real"       "charge"     "few"       
+ [6] "experience" "law"        "flat"       "especial"   "live"      </code></pre>
 </div>
 </div>
 <div class="cell">
 <details class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb65"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1"></a><span class="fu">data</span>(sentences)</span>
 <span id="cb65-2"><a href="#cb65-2"></a><span class="fu">sample</span>(sentences, <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output cell-output-stdout">
-<pre><code> [1] "The theft of the pearl pin was kept secret."      
- [2] "Slide the bill between the two leaves."           
- [3] "He put his last cartridge into the gun and fired."
- [4] "The boss ran the show with a watchful eye."       
- [5] "The ancient coin was quite dull and worn."        
- [6] "Pages bound in cloth make a book."                
- [7] "The child almost hurt the small dog."             
- [8] "A flat pack takes less luggage space."            
- [9] "The bank pressed for payment of the debt."        
-[10] "Type out three lists of orders."                  </code></pre>
+<pre><code> [1] "Hop over the fence and plunge in."               
+ [2] "Drive the screw straight into the wood."         
+ [3] "The glow deepened in the eyes of the sweet girl."
+ [4] "It snowed, rained, and hailed the same morning." 
+ [5] "Slide the tray across the glass top."            
+ [6] "A gold ring will please most any girl."          
+ [7] "Tuck the sheet under the edge of the mat."       
+ [8] "The corner store was robbed last night."         
+ [9] "The room was crowded with a wild mob."           
+[10] "A filing case is now hard to buy."               </code></pre>
 </div>
 </div>
 <p>We can use <code>str_view()</code> with the <code>pattern</code> argument to see what parts of a string match the regex supplied in the <code>pattern</code> argument. (Matches are enclosed in <code>&lt;&gt;</code>.)</p>
