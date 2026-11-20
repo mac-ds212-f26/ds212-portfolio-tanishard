@@ -85,11 +85,14 @@ book:
       - ica/11-iteration-1.qmd
       - ica/12-iteration-2.qmd
       - ica/14-apis-2.qmd
+      - ica/16-databases.qmd
+      - ica/18-interactive-viz.qmd
 
     - part: "Extras"
       chapters:
       - extra/extra-sample1.qmd
       - extra/extra-sample2.qmd
+      - extra/extra-sample3.qmd
 
 
 

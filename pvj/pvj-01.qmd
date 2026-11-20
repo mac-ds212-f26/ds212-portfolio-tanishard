@@ -18,6 +18,7 @@ library(ggplot2)
 library(scales)
 library(purrr)
 library(ggtext)
+library(geomtextpath)
 
 #Read in Data
 books = read_csv("storygraph.csv")
@@ -154,6 +155,800 @@ monthly_books_long2 <- monthly_books_long2 %>%
   ungroup()
 ```
 
+Version 7: 
+
+```{r, warning=FALSE}
+#| code-fold: true
+#| code-summary: "Version 7: Graphing Code"
+
+
+# 1. Order genres by cumulative total
+genre_order <- monthly_books_long2 %>%
+  group_by(genre) %>%
+  summarise(
+    n = max(cumulative_books, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  arrange(desc(n))
+
+lev <- as.character(genre_order$genre)
+
+# 2. Fill missing genre/month combinations
+full_long <- monthly_books_long2 %>%
+  select(month, genre, books) %>%
+  complete(month, genre, fill = list(books = 0)) %>%
+  mutate(genre = factor(genre, levels = lev)) %>%
+  group_by(genre) %>%
+  arrange(month, .by_group = TRUE) %>%
+  mutate(cumulative_books = cumsum(books)) %>%
+  ungroup()
+
+# 3. Smooth each genre's cumulative curve
+x_out <- seq(
+  as.numeric(min(full_long$month)),
+  as.numeric(max(full_long$month)),
+  length.out = 400
+)
+
+smooth_df <- full_long %>%
+  group_by(genre) %>%
+  group_modify(~ {
+    f <- splinefun(
+      x = as.numeric(.x$month),
+      y = .x$cumulative_books,
+      method = "monoH.FC"
+    )
+
+    tibble(
+      month = as.Date(x_out, origin = "1970-01-01"),
+      cumulative_books = pmax(f(x_out), 0)
+    )
+  }) %>%
+  ungroup() %>%
+  mutate(genre = factor(genre, levels = lev))
+
+# 4. Colours
+pal <- colorRampPalette(
+  c("#F2A03A", "#E8606A", "#B24A7C",
+    "#5E4A82", "#33457A", "#16384F")
+)(length(lev))
+
+names(pal) <- lev
+
+# 4b. Subtitle with genre names coloured to match their bands
+#     (case-insensitive lookup, so "Romance" or "romance" both work)
+col_romance <- pal[[lev[tolower(lev) == "romance"]]]
+col_fantasy <- pal[[lev[tolower(lev) == "fantasy"]]]
+
+subtitle_text <- paste0(
+  "I read about 100 books a year, mostly ",
+  "<span style='color:", col_romance, "'><b>romance</b></span> and ",
+  "<span style='color:", col_fantasy, "'><b>fantasy</b></span>"
+)
+
+# 5. Total cumulative books at selected dates
+marker_dates <- as.Date(c(
+  "2025-01-01",
+  "2026-01-01",
+  "2026-08-01"
+))
+
+total_books <- monthly_books2 %>%
+  arrange(month) %>%
+  mutate(
+    total_books = rowSums(
+      across(all_of(lev)),
+      na.rm = TRUE
+    ),
+    cumulative_total = cumsum(total_books)
+  ) %>%
+  filter(month %in% marker_dates)
+
+# 6. Side labels: top 6 genres only, with rounded counts
+x_min <- min(full_long$month)
+x_max <- max(full_long$month)
+
+top_n_labels <- 6
+top_genres <- head(lev, top_n_labels)
+
+# ggplot stacks the first factor level on TOP, so the genres that come
+# later in `lev` sit below it. Work out each band's midpoint at the last month.
+label_df <- full_long %>%
+  filter(month == x_max) %>%
+  mutate(genre = factor(genre, levels = lev)) %>%
+  arrange(genre) %>%
+  mutate(
+    ymax = rev(cumsum(rev(cumulative_books))),   # top of each band
+    ymin = ymax - cumulative_books,              # bottom of each band
+    y_mid = (ymin + ymax) / 2,
+    label = paste0(
+      tools::toTitleCase(as.character(genre)),
+      " ",
+      round(cumulative_books)
+    )
+  ) %>%
+  filter(as.character(genre) %in% top_genres)
+
+y_top <- max(total_books$cumulative_total, na.rm = TRUE)
+
+# Curve for the subtitle: the top edge of the stack, lifted upward
+curve_offset <- y_top * 0.12                      # how far above the area it floats
+curve_start  <- x_min + 20
+curve_end    <- as.Date("2025-09-01")             # where the text should finish
+
+subtitle_curve <- smooth_df %>%
+  group_by(month) %>%
+  summarise(total = sum(cumulative_books), .groups = "drop") %>%
+  filter(month >= curve_start, month <= curve_end) %>%
+  mutate(
+    y = total + curve_offset,
+    label = subtitle_text
+  )
+
+# 7. Plot
+final_plot <- ggplot(
+  smooth_df,
+  aes(x = month, y = cumulative_books, fill = genre)
+) +
+  geom_area(
+    position = "stack",
+    colour = NA
+  ) +
+
+  # Title: 2 lines, smaller than before (was size 10, 3 lines)
+  annotate(
+    "text",
+    x = x_min + 20,
+    y = y_top * 1.05,
+    label = "Cumulative Books Read\nby Genre",
+    hjust = 0,
+    vjust = 1,
+    lineheight = 0.9,
+    fontface = "bold",
+    size = 7,
+    colour = "black"
+  ) +
+
+  # Subtitle: floats above the area and follows its shape
+  geom_textpath(
+    data = subtitle_curve,
+    aes(x = month, y = y, label = label),
+    inherit.aes = FALSE,
+    rich = TRUE,            # lets the <span style='color:...'> tags work
+    hjust = 0,
+    vjust = 0,
+    size = 3.4,
+    text_only = TRUE,       # no line, just the curved text
+    text_smoothing = 30,    # smooths letter angles along the curve
+    colour = "black"
+  ) +
+
+  # Black lollipop stems for total books
+  geom_segment(
+    data = total_books,
+    aes(
+      x = month,
+      xend = month,
+      y = 0,
+      yend = cumulative_total
+    ),
+    inherit.aes = FALSE,
+    colour = "black",
+    linewidth = 0.7
+  ) +
+
+  # Black lollipop dots
+  geom_point(
+    data = total_books,
+    aes(
+      x = month,
+      y = cumulative_total
+    ),
+    inherit.aes = FALSE,
+    colour = "black",
+    size = 2.5
+  ) +
+
+  # Total labels above the dots
+  geom_text(
+    data = total_books,
+    aes(
+      x = month,
+      y = cumulative_total,
+      label = round(cumulative_total)
+    ),
+    inherit.aes = FALSE,
+    colour = "black",
+    vjust = -0.8,
+    size = 3
+  ) +
+
+  # Genre labels on the right side (top 6 only), coloured to match their band
+  geom_text(
+    data = label_df,
+    aes(
+      x = x_max + 15,
+      y = y_mid,
+      label = label,
+      colour = genre
+    ),
+    inherit.aes = FALSE,
+    hjust = 0,
+    fontface = "bold",
+    size = 3.3
+  ) +
+
+  scale_fill_manual(values = pal) +
+  scale_colour_manual(values = pal) +
+
+  scale_x_date(
+    breaks = seq(x_min, x_max, by = "3 months"),
+    labels = function(x) {
+      ifelse(
+        format(x, "%m") == "01",
+        paste0("Jan\n", format(x, "%Y")),   # year shown under January
+        format(x, "%b")
+      )
+    }
+  ) +
+
+  scale_y_continuous(
+    expand = expansion(mult = c(0, 0.08))
+  ) +
+
+  labs(
+    caption = paste(
+      "Author: Tanisha Dodla",
+      "| Date Created: November 4, 2026",
+      "| Data: StoryGraph"
+    ),
+    x = NULL,
+    y = NULL
+  ) +
+  theme_classic() +
+  theme(
+    # caption pushed further below the plot
+    plot.caption = element_text(
+      hjust = 0, size = 8, color = "#82898c",
+      margin = margin(t = 20)
+    ),
+    plot.caption.position = "plot",
+
+    legend.position = "none",
+    axis.line.y = element_blank(),
+    axis.text.y = element_blank(),
+    axis.ticks.y = element_blank(),
+    axis.line.x = element_line(linewidth = 1),
+    axis.text.x = element_text(size = 9, colour = "black", hjust = 0),
+    plot.margin = margin(10, 110, 10, 10)   # extra right margin for labels
+  ) +
+
+  coord_cartesian(
+    xlim = c(x_min, x_max),
+    expand = FALSE,
+    clip = "off"
+  )
+
+final_plot
+```
+
+
+Version 6: 
+
+```{r}
+#| code-fold: true
+#| code-summary: "Version 6: Graphing Code"
+
+
+# 1. Order genres by cumulative total
+genre_order <- monthly_books_long2 %>%
+  group_by(genre) %>%
+  summarise(
+    n = max(cumulative_books, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  arrange(desc(n))
+
+lev <- as.character(genre_order$genre)
+
+# 2. Fill missing genre/month combinations
+full_long <- monthly_books_long2 %>%
+  select(month, genre, books) %>%
+  complete(month, genre, fill = list(books = 0)) %>%
+  mutate(genre = factor(genre, levels = lev)) %>%
+  group_by(genre) %>%
+  arrange(month, .by_group = TRUE) %>%
+  mutate(cumulative_books = cumsum(books)) %>%
+  ungroup()
+
+# 3. Smooth each genre's cumulative curve
+x_out <- seq(
+  as.numeric(min(full_long$month)),
+  as.numeric(max(full_long$month)),
+  length.out = 400
+)
+
+smooth_df <- full_long %>%
+  group_by(genre) %>%
+  group_modify(~ {
+    f <- splinefun(
+      x = as.numeric(.x$month),
+      y = .x$cumulative_books,
+      method = "monoH.FC"
+    )
+
+    tibble(
+      month = as.Date(x_out, origin = "1970-01-01"),
+      cumulative_books = pmax(f(x_out), 0)
+    )
+  }) %>%
+  ungroup() %>%
+  mutate(genre = factor(genre, levels = lev))
+
+# 4. Colours
+pal <- colorRampPalette(
+  c("#F2A03A", "#E8606A", "#B24A7C",
+    "#5E4A82", "#33457A", "#16384F")
+)(length(lev))
+
+names(pal) <- lev
+
+# 4b. Subtitle with genre names coloured to match their bands
+#     (case-insensitive lookup, so "Romance" or "romance" both work)
+col_romance <- pal[[lev[tolower(lev) == "romance"]]]
+col_fantasy <- pal[[lev[tolower(lev) == "fantasy"]]]
+
+subtitle_text <- paste0(
+  "I read about 100 books a year, mostly ",
+  "<span style='color:", col_romance, "'><b>romance</b></span> and ",
+  "<span style='color:", col_fantasy, "'><b>fantasy</b></span>"
+)
+
+# 5. Total cumulative books at selected dates
+marker_dates <- as.Date(c(
+  "2025-01-01",
+  "2026-01-01",
+  "2026-08-01"
+))
+
+total_books <- monthly_books2 %>%
+  arrange(month) %>%
+  mutate(
+    total_books = rowSums(
+      across(all_of(lev)),
+      na.rm = TRUE
+    ),
+    cumulative_total = cumsum(total_books)
+  ) %>%
+  filter(month %in% marker_dates)
+
+# 6. Side labels: top 6 genres only, with rounded counts
+x_min <- min(full_long$month)
+x_max <- max(full_long$month)
+
+top_n_labels <- 6
+top_genres <- head(lev, top_n_labels)
+
+# ggplot stacks the first factor level on TOP, so the genres that come
+# later in `lev` sit below it. Work out each band's midpoint at the last month.
+label_df <- full_long %>%
+  filter(month == x_max) %>%
+  mutate(genre = factor(genre, levels = lev)) %>%
+  arrange(genre) %>%
+  mutate(
+    ymax = rev(cumsum(rev(cumulative_books))),   # top of each band
+    ymin = ymax - cumulative_books,              # bottom of each band
+    y_mid = (ymin + ymax) / 2,
+    label = paste0(
+      tools::toTitleCase(as.character(genre)),
+      " ",
+      round(cumulative_books)
+    )
+  ) %>%
+  filter(as.character(genre) %in% top_genres)
+
+y_top <- max(total_books$cumulative_total, na.rm = TRUE)
+
+# Subtitle data frame (geom_richtext needs a data frame)
+subtitle_df <- tibble(
+  x = x_min + 20,
+  y = y_top * 1.05 - (y_top * 0.20),   # sits just below the 2-line title
+  label = subtitle_text
+)
+
+# 7. Plot
+final_plot <- ggplot(
+  smooth_df,
+  aes(x = month, y = cumulative_books, fill = genre)
+) +
+  geom_area(
+    position = "stack",
+    colour = NA
+  ) +
+
+  # Title: 2 lines, smaller than before (was size 10, 3 lines)
+  annotate(
+    "text",
+    x = x_min + 20,
+    y = y_top * 1.05,
+    label = "Cumulative Books Read\nby Genre",
+    hjust = 0,
+    vjust = 1,
+    lineheight = 0.9,
+    fontface = "bold",
+    size = 7,
+    colour = "black"
+  ) +
+
+  # Subtitle: smaller than the title, genre names coloured to match the plot
+  geom_richtext(
+    data = subtitle_df,
+    aes(x = x, y = y, label = label),
+    inherit.aes = FALSE,
+    hjust = 0,
+    vjust = 1,
+    size = 3.2,
+    fill = NA,
+    label.color = NA,
+    label.padding = grid::unit(rep(0, 4), "pt"),
+    colour = "black"
+  ) +
+
+  # Black lollipop stems for total books
+  geom_segment(
+    data = total_books,
+    aes(
+      x = month,
+      xend = month,
+      y = 0,
+      yend = cumulative_total
+    ),
+    inherit.aes = FALSE,
+    colour = "black",
+    linewidth = 0.7
+  ) +
+
+  # Black lollipop dots
+  geom_point(
+    data = total_books,
+    aes(
+      x = month,
+      y = cumulative_total
+    ),
+    inherit.aes = FALSE,
+    colour = "black",
+    size = 2.5
+  ) +
+
+  # Total labels above the dots
+  geom_text(
+    data = total_books,
+    aes(
+      x = month,
+      y = cumulative_total,
+      label = round(cumulative_total)
+    ),
+    inherit.aes = FALSE,
+    colour = "black",
+    vjust = -0.8,
+    size = 3
+  ) +
+
+  # Genre labels on the right side (top 6 only), coloured to match their band
+  geom_text(
+    data = label_df,
+    aes(
+      x = x_max + 15,
+      y = y_mid,
+      label = label,
+      colour = genre
+    ),
+    inherit.aes = FALSE,
+    hjust = 0,
+    fontface = "bold",
+    size = 3.3
+  ) +
+
+  scale_fill_manual(values = pal) +
+  scale_colour_manual(values = pal) +
+
+  scale_x_date(
+    breaks = seq(x_min, x_max, by = "3 months"),
+    labels = function(x) {
+      ifelse(
+        format(x, "%m") == "01",
+        paste0("Jan\n", format(x, "%Y")),   # year shown under January
+        format(x, "%b")
+      )
+    }
+  ) +
+
+  scale_y_continuous(
+    expand = expansion(mult = c(0, 0.08))
+  ) +
+
+  labs(
+    caption = paste(
+      "Author: Tanisha Dodla",
+      "| Date Created: November 4, 2026",
+      "| Data: StoryGraph"
+    ),
+    x = NULL,
+    y = NULL
+  ) +
+  theme_classic() +
+  theme(
+    # caption pushed further below the plot
+    plot.caption = element_text(
+      hjust = 0, size = 8, color = "#82898c",
+      margin = margin(t = 20)
+    ),
+    plot.caption.position = "plot",
+
+    legend.position = "none",
+    axis.line.y = element_blank(),
+    axis.text.y = element_blank(),
+    axis.ticks.y = element_blank(),
+    axis.line.x = element_line(linewidth = 1),
+    axis.text.x = element_text(size = 9, colour = "black", hjust = 0),
+    plot.margin = margin(10, 110, 10, 10)   # extra right margin for labels
+  ) +
+
+  coord_cartesian(
+    xlim = c(x_min, x_max),
+    expand = FALSE,
+    clip = "off"
+  )
+
+final_plot
+```
+
+
+Version 5: 
+
+```{r}
+#| code-fold: true
+#| code-summary: "Version 5: Graphing Code"
+
+title_font <- "sans"
+
+# 1. Order genres by cumulative total
+genre_order <- monthly_books_long2 %>%
+  group_by(genre) %>%
+  summarise(
+    n = max(cumulative_books, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  arrange(desc(n))
+
+lev <- as.character(genre_order$genre)
+
+# 2. Fill missing genre/month combinations
+full_long <- monthly_books_long2 %>%
+  select(month, genre, books) %>%
+  complete(month, genre, fill = list(books = 0)) %>%
+  mutate(genre = factor(genre, levels = lev)) %>%
+  group_by(genre) %>%
+  arrange(month, .by_group = TRUE) %>%
+  mutate(cumulative_books = cumsum(books)) %>%
+  ungroup()
+
+# 3. Smooth each genre's cumulative curve
+x_out <- seq(
+  as.numeric(min(full_long$month)),
+  as.numeric(max(full_long$month)),
+  length.out = 400
+)
+
+smooth_df <- full_long %>%
+  group_by(genre) %>%
+  group_modify(~ {
+    f <- splinefun(
+      x = as.numeric(.x$month),
+      y = .x$cumulative_books,
+      method = "monoH.FC"
+    )
+
+    tibble(
+      month = as.Date(x_out, origin = "1970-01-01"),
+      cumulative_books = pmax(f(x_out), 0)
+    )
+  }) %>%
+  ungroup() %>%
+  mutate(genre = factor(genre, levels = lev))
+
+# 4. Colours
+pal <- colorRampPalette(
+  c("#F2A03A", "#E8606A", "#B24A7C",
+    "#5E4A82", "#33457A", "#16384F")
+)(length(lev))
+
+names(pal) <- lev
+
+# 5. Total cumulative books at selected dates
+marker_dates <- as.Date(c(
+  "2025-01-01",
+  "2026-01-01",
+  "2026-08-01"
+))
+
+total_books <- monthly_books2 %>%
+  arrange(month) %>%
+  mutate(
+    total_books = rowSums(
+      across(all_of(lev)),
+      na.rm = TRUE
+    ),
+    cumulative_total = cumsum(total_books)
+  ) %>%
+  filter(month %in% marker_dates)
+
+# 6. Side labels: top 6 genres only, with rounded counts
+x_min <- min(full_long$month)
+x_max <- max(full_long$month)
+
+top_n_labels <- 6
+top_genres <- head(lev, top_n_labels)
+
+# ggplot stacks the first factor level on TOP, so the genres that come
+# later in `lev` sit below it. Work out each band's midpoint at the last month.
+label_df <- full_long %>%
+  filter(month == x_max) %>%
+  mutate(genre = factor(genre, levels = lev)) %>%
+  arrange(genre) %>%
+  mutate(
+    ymax = rev(cumsum(rev(cumulative_books))),   # top of each band
+    ymin = ymax - cumulative_books,              # bottom of each band
+    y_mid = (ymin + ymax) / 2,
+    label = paste0(
+      tools::toTitleCase(as.character(genre)),
+      " ",
+      round(cumulative_books)
+    )
+  ) %>%
+  filter(as.character(genre) %in% top_genres)
+
+y_top <- max(total_books$cumulative_total, na.rm = TRUE)
+
+# 7. Plot
+final_plot <- ggplot(
+  smooth_df,
+  aes(x = month, y = cumulative_books, fill = genre)
+) +
+  geom_area(
+    position = "stack",
+    colour = NA
+  ) +
+  annotate(
+  "text",
+  x = x_min + 20,
+  y = y_top * 1.05,
+  label = "Cumulative\nBooks Read\nby Genre",
+  hjust = 0,
+  vjust = 1,
+  lineheight = 0.9,
+  fontface = "bold",
+  family = title_font,
+  size = 10,
+  colour = "black"
+) +
+annotate(
+  "text",
+  x = x_min + 20,
+  y = y_top * 1.05 - (y_top * 0.35),
+  label = "I read about 100 books \na year, mostly romance \nand fantasy",
+  hjust = 0,
+  vjust = 1,
+  family = title_font,
+  size = 4,
+  colour = "black"
+) +
+  # Black lollipop stems for total books
+  geom_segment(
+    data = total_books,
+    aes(
+      x = month,
+      xend = month,
+      y = 0,
+      yend = cumulative_total
+    ),
+    inherit.aes = FALSE,
+    colour = "black",
+    linewidth = 0.7
+  ) +
+
+  # Black lollipop dots
+  geom_point(
+    data = total_books,
+    aes(
+      x = month,
+      y = cumulative_total
+    ),
+    inherit.aes = FALSE,
+    colour = "black",
+    size = 2.5
+  ) +
+
+  # Total labels above the dots
+  geom_text(
+    data = total_books,
+    aes(
+      x = month,
+      y = cumulative_total,
+      label = round(cumulative_total)
+    ),
+    inherit.aes = FALSE,
+    colour = "black",
+    vjust = -0.8,
+    size = 3
+  ) +
+
+  # Genre labels on the right side (top 6 only), coloured to match their band
+  geom_text(
+    data = label_df,
+    aes(
+      x = x_max + 15,
+      y = y_mid,
+      label = label,
+      colour = genre
+    ),
+    inherit.aes = FALSE,
+    hjust = 0,
+    fontface = "bold",
+    size = 3.3
+  ) +
+
+  scale_fill_manual(values = pal) +
+  scale_colour_manual(values = pal) +
+
+    scale_x_date(
+    breaks = seq(x_min, x_max, by = "3 months"),
+    labels = function(x) {
+      ifelse(
+        format(x, "%m") == "01",
+        paste0("Jan\n", format(x, "%Y")),   # year shown under January
+        format(x, "%b")
+      )
+    }
+  ) +
+
+  scale_y_continuous(
+    expand = expansion(mult = c(0, 0.08))
+  ) +
+
+  labs(
+    caption = paste(
+      "Author: Tanisha Dodla",
+      "| Date Created: November 4, 2026",
+      "| Data: StoryGraph"
+    ),
+    x = NULL,
+    y = NULL
+  ) +
+  theme_classic() +
+
+  theme(
+    text = element_text(family = title_font),
+    plot.caption = element_text(hjust = 0, size = 8),
+    plot.caption.position = "plot",
+    legend.position = "none",
+    axis.line.y = element_blank(),
+    axis.text.y = element_blank(),
+    axis.ticks.y = element_blank(),
+    axis.line.x = element_line(linewidth = 1),
+    axis.text.x = element_text(size = 9,colour = "black",hjust = 0),
+    plot.margin = margin(10, 110, 10, 10)   # extra right margin for labels
+  ) +
+
+  coord_cartesian(
+    xlim = c(x_min, x_max),
+    expand = FALSE,
+    clip = "off"
+  )
+
+final_plot
+```
+
 Version 4: 
 
 ```{r}
@@ -272,14 +1067,14 @@ final_plot <- ggplot(
   annotate(
     "text",
     x = x_min + 20,
-    y = y_top * 1.02,
+    y = y_top * 1.05,
     label = "Cumulative\nBooks Read\nby Genre",
     hjust = 0,
     vjust = 1,
     lineheight = 0.9,
     fontface = "bold",
     family = title_font,
-    size = 9,
+    size = 12,
     colour = "black"
   ) +
   # Black lollipop stems for total books
