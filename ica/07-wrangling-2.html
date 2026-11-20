@@ -265,12 +265,22 @@ cookieconsent.run({
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../ica/12-iteration-2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">12 Iteration II</span></a>
+  <a href="../ica/12-iteration-2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Walking and Mapping</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ica/14-apis-2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">NYT and Census APIs</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/16-databases.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Flights and SQL</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/18-interactive-viz.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Using Plotly</span></a>
   </div>
 </li>
       </ul>
@@ -292,6 +302,11 @@ cookieconsent.run({
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../extra/extra-sample2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">My Listening History: Spotify Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../extra/extra-sample3.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Exploring Plotly</span></a>
   </div>
 </li>
       </ul>
@@ -504,8 +519,8 @@ cookieconsent.run({
 <div class="cell">
 <details class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="fu">str_view</span>(string1, <span class="at">html =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
-<div class="str_view html-widget html-fill-item" id="htmlwidget-8a4588ea6ff9a466665c" style="width:960px;height:100%;"></div>
-<script type="application/json" data-for="htmlwidget-8a4588ea6ff9a466665c">{"x":{"html":"<ul>\n  <li><pre>Record temp:<span class='special'>\t<\/span>102<\/pre><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div class="str_view html-widget html-fill-item" id="htmlwidget-a08d305eff450bbc40c0" style="width:960px;height:100%;"></div>
+<script type="application/json" data-for="htmlwidget-a08d305eff450bbc40c0">{"x":{"html":"<ul>\n  <li><pre>Record temp:<span class='special'>\t<\/span>102<\/pre><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </section><section id="combine" class="level3"><h3 class="anchored" data-anchor-id="combine">Combine</h3>
@@ -680,32 +695,32 @@ cookieconsent.run({
 <span id="cb61-2"><a href="#cb61-2"></a><span class="fu">data</span>(fruit)</span>
 <span id="cb61-3"><a href="#cb61-3"></a><span class="fu">sample</span>(fruit, <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output cell-output-stdout">
-<pre><code> [1] "orange"      "pineapple"   "pomelo"      "durian"      "lemon"      
- [6] "bell pepper" "mango"       "salal berry" "jujube"      "plum"       </code></pre>
+<pre><code> [1] "lychee"     "mango"      "plum"       "kumquat"    "honeydew"  
+ [6] "strawberry" "eggplant"   "date"       "olive"      "nectarine" </code></pre>
 </div>
 </div>
 <div class="cell">
 <details class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb63"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1"></a><span class="fu">data</span>(words)</span>
 <span id="cb63-2"><a href="#cb63-2"></a><span class="fu">sample</span>(words, <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output cell-output-stdout">
-<pre><code> [1] "any"        "key"        "real"       "charge"     "few"       
- [6] "experience" "law"        "flat"       "especial"   "live"      </code></pre>
+<pre><code> [1] "amount"  "so"      "station" "brief"   "council" "find"    "poor"   
+ [8] "worse"   "this"    "spend"  </code></pre>
 </div>
 </div>
 <div class="cell">
 <details class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb65"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1"></a><span class="fu">data</span>(sentences)</span>
 <span id="cb65-2"><a href="#cb65-2"></a><span class="fu">sample</span>(sentences, <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output cell-output-stdout">
-<pre><code> [1] "Hop over the fence and plunge in."               
- [2] "Drive the screw straight into the wood."         
- [3] "The glow deepened in the eyes of the sweet girl."
- [4] "It snowed, rained, and hailed the same morning." 
- [5] "Slide the tray across the glass top."            
- [6] "A gold ring will please most any girl."          
- [7] "Tuck the sheet under the edge of the mat."       
- [8] "The corner store was robbed last night."         
- [9] "The room was crowded with a wild mob."           
-[10] "A filing case is now hard to buy."               </code></pre>
+<pre><code> [1] "The child almost hurt the small dog."             
+ [2] "A rag will soak up spilled water."                
+ [3] "The boss ran the show with a watchful eye."       
+ [4] "Tuck the sheet under the edge of the mat."        
+ [5] "The best method is to fix it in place with clips."
+ [6] "The doorknob was made of bright clean brass."     
+ [7] "The desk and both chairs were painted tan."       
+ [8] "The rarest spice comes from the far East."        
+ [9] "He wrote down a long list of items."              
+[10] "Use a pencil to write the first draft."           </code></pre>
 </div>
 </div>
 <p>We can use <code>str_view()</code> with the <code>pattern</code> argument to see what parts of a string match the regex supplied in the <code>pattern</code> argument. (Matches are enclosed in <code>&lt;&gt;</code>.)</p>

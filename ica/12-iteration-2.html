@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.6.40">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>12 Iteration II – COMP/STAT212 Portfolio</title>
+<title>Walking and Mapping – COMP/STAT212 Portfolio</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -124,7 +124,7 @@ cookieconsent.run({
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ica/ica1.html">In-Class Activities</a></li><li class="breadcrumb-item"><a href="../ica/12-iteration-2.html"><span class="chapter-title">12 Iteration II</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ica/ica1.html">In-Class Activities</a></li><li class="breadcrumb-item"><a href="../ica/12-iteration-2.html"><span class="chapter-title">Walking and Mapping</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -264,12 +264,22 @@ cookieconsent.run({
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../ica/12-iteration-2.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">12 Iteration II</span></a>
+  <a href="../ica/12-iteration-2.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Walking and Mapping</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ica/14-apis-2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">NYT and Census APIs</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/16-databases.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Flights and SQL</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/18-interactive-viz.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Using Plotly</span></a>
   </div>
 </li>
       </ul>
@@ -291,6 +301,11 @@ cookieconsent.run({
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../extra/extra-sample2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">My Listening History: Spotify Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../extra/extra-sample3.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Exploring Plotly</span></a>
   </div>
 </li>
       </ul>
@@ -328,8 +343,8 @@ cookieconsent.run({
   </ul></nav>
     </div>
 <!-- main -->
-<main class="content column-body" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ica/ica1.html">In-Class Activities</a></li><li class="breadcrumb-item"><a href="../ica/12-iteration-2.html"><span class="chapter-title">12 Iteration II</span></a></li></ol></nav><div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-title">12 Iteration II</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+<main class="content column-body" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ica/ica1.html">In-Class Activities</a></li><li class="breadcrumb-item"><a href="../ica/12-iteration-2.html"><span class="chapter-title">Walking and Mapping</span></a></li></ol></nav><div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-title">Walking and Mapping</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
 </div>
 
 
@@ -393,13 +408,13 @@ cookieconsent.run({
 <details class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># Example 1: For loop with no storage container; append new value to existing vector</span></span>
 <span id="cb3-2"><a href="#cb3-2"></a>x <span class="ot">&lt;-</span> <span class="fu">integer</span>()</span>
 <span id="cb3-3"><a href="#cb3-3"></a>results1 <span class="ot">&lt;-</span> bench<span class="sc">::</span><span class="fu">mark</span>(</span>
-<span id="cb3-4"><a href="#cb3-4"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fl">1e5</span>) {</span>
+<span id="cb3-4"><a href="#cb3-4"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fl">1e2</span>) {</span>
 <span id="cb3-5"><a href="#cb3-5"></a>    x <span class="ot">&lt;-</span> <span class="fu">c</span>(x, i)</span>
 <span id="cb3-6"><a href="#cb3-6"></a>  }</span>
 <span id="cb3-7"><a href="#cb3-7"></a>)</span>
 <span id="cb3-8"><a href="#cb3-8"></a></span>
 <span id="cb3-9"><a href="#cb3-9"></a><span class="co"># Example 2: For loop with a storage container!</span></span>
-<span id="cb3-10"><a href="#cb3-10"></a>x <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">'integer'</span>, <span class="at">length =</span> <span class="fl">1e5</span>)</span>
+<span id="cb3-10"><a href="#cb3-10"></a>x <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">'integer'</span>, <span class="at">length =</span> <span class="fl">1e2</span>)</span>
 <span id="cb3-11"><a href="#cb3-11"></a>results2 <span class="ot">&lt;-</span> bench<span class="sc">::</span><span class="fu">mark</span>(</span>
 <span id="cb3-12"><a href="#cb3-12"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fl">1e5</span>) {</span>
 <span id="cb3-13"><a href="#cb3-13"></a>    x[i] <span class="ot">&lt;-</span> i</span>
@@ -407,11 +422,11 @@ cookieconsent.run({
 <span id="cb3-15"><a href="#cb3-15"></a>)</span>
 <span id="cb3-16"><a href="#cb3-16"></a></span>
 <span id="cb3-17"><a href="#cb3-17"></a><span class="co"># Example 3: purrr::map()</span></span>
-<span id="cb3-18"><a href="#cb3-18"></a>results3 <span class="ot">&lt;-</span> bench<span class="sc">::</span><span class="fu">mark</span>(purrr<span class="sc">::</span><span class="fu">map_int</span>(<span class="dv">1</span><span class="sc">:</span><span class="fl">1e5</span>, <span class="sc">~</span>.x))</span>
+<span id="cb3-18"><a href="#cb3-18"></a>results3 <span class="ot">&lt;-</span> bench<span class="sc">::</span><span class="fu">mark</span>(purrr<span class="sc">::</span><span class="fu">map_int</span>(<span class="dv">1</span><span class="sc">:</span><span class="fl">1e2</span>, <span class="sc">~</span>.x))</span>
 <span id="cb3-19"><a href="#cb3-19"></a></span>
 <span id="cb3-20"><a href="#cb3-20"></a></span>
 <span id="cb3-21"><a href="#cb3-21"></a><span class="co"># Example 4: Standard R Function/Operator</span></span>
-<span id="cb3-22"><a href="#cb3-22"></a>results4 <span class="ot">&lt;-</span> bench<span class="sc">::</span><span class="fu">mark</span>(<span class="fu">seq</span>(<span class="dv">1</span>,<span class="fl">1e5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-22"><a href="#cb3-22"></a>results4 <span class="ot">&lt;-</span> bench<span class="sc">::</span><span class="fu">mark</span>(<span class="fu">seq</span>(<span class="dv">1</span>,<span class="fl">1e2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="cell">
@@ -423,10 +438,10 @@ cookieconsent.run({
 <pre><code># A tibble: 4 × 3
   type                  mem_alloc total_time
   &lt;chr&gt;                 &lt;bch:byt&gt;   &lt;bch:tm&gt;
-1 for_loop_no_storage      18.6GB      17.8s
-2 for_loop_with_storage   402.3KB    491.8ms
-3 purrr_map               397.5KB     37.4ms
-4 standard_func                0B     19.6ms</code></pre>
+1 for_loop_no_storage     33.61KB    395.1ms
+2 for_loop_with_storage    8.28MB    461.5ms
+3 purrr_map                7.31KB    446.6ms
+4 standard_func                0B     18.5ms</code></pre>
 </div>
 </div>
 </section></section><section id="iteration-with-map" class="level2"><h2 class="anchored" data-anchor-id="iteration-with-map">Iteration with <code>map</code>
@@ -1490,7 +1505,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
 <div class="sourceCode" id="cb45" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb45-1"><a href="#cb45-1"></a><span class="co">---</span></span>
-<span id="cb45-2"><a href="#cb45-2"></a><span class="an">title:</span><span class="co"> "12 Iteration II"</span></span>
+<span id="cb45-2"><a href="#cb45-2"></a><span class="an">title:</span><span class="co"> "Walking and Mapping"</span></span>
 <span id="cb45-3"><a href="#cb45-3"></a><span class="co">---</span></span>
 <span id="cb45-4"><a href="#cb45-4"></a></span>
 <span id="cb45-5"><a href="#cb45-5"></a></span>
@@ -1558,13 +1573,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb45-71"><a href="#cb45-71"></a><span class="co"># Example 1: For loop with no storage container; append new value to existing vector</span></span>
 <span id="cb45-72"><a href="#cb45-72"></a>x <span class="ot">&lt;-</span> <span class="fu">integer</span>()</span>
 <span id="cb45-73"><a href="#cb45-73"></a>results1 <span class="ot">&lt;-</span> bench<span class="sc">::</span><span class="fu">mark</span>(</span>
-<span id="cb45-74"><a href="#cb45-74"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fl">1e5</span>) {</span>
+<span id="cb45-74"><a href="#cb45-74"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fl">1e2</span>) {</span>
 <span id="cb45-75"><a href="#cb45-75"></a>    x <span class="ot">&lt;-</span> <span class="fu">c</span>(x, i)</span>
 <span id="cb45-76"><a href="#cb45-76"></a>  }</span>
 <span id="cb45-77"><a href="#cb45-77"></a>)</span>
 <span id="cb45-78"><a href="#cb45-78"></a></span>
 <span id="cb45-79"><a href="#cb45-79"></a><span class="co"># Example 2: For loop with a storage container!</span></span>
-<span id="cb45-80"><a href="#cb45-80"></a>x <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">'integer'</span>, <span class="at">length =</span> <span class="fl">1e5</span>)</span>
+<span id="cb45-80"><a href="#cb45-80"></a>x <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">'integer'</span>, <span class="at">length =</span> <span class="fl">1e2</span>)</span>
 <span id="cb45-81"><a href="#cb45-81"></a>results2 <span class="ot">&lt;-</span> bench<span class="sc">::</span><span class="fu">mark</span>(</span>
 <span id="cb45-82"><a href="#cb45-82"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fl">1e5</span>) {</span>
 <span id="cb45-83"><a href="#cb45-83"></a>    x[i] <span class="ot">&lt;-</span> i</span>
@@ -1572,11 +1587,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb45-85"><a href="#cb45-85"></a>)</span>
 <span id="cb45-86"><a href="#cb45-86"></a></span>
 <span id="cb45-87"><a href="#cb45-87"></a><span class="co"># Example 3: purrr::map()</span></span>
-<span id="cb45-88"><a href="#cb45-88"></a>results3 <span class="ot">&lt;-</span> bench<span class="sc">::</span><span class="fu">mark</span>(purrr<span class="sc">::</span><span class="fu">map_int</span>(<span class="dv">1</span><span class="sc">:</span><span class="fl">1e5</span>, <span class="sc">~</span>.x))</span>
+<span id="cb45-88"><a href="#cb45-88"></a>results3 <span class="ot">&lt;-</span> bench<span class="sc">::</span><span class="fu">mark</span>(purrr<span class="sc">::</span><span class="fu">map_int</span>(<span class="dv">1</span><span class="sc">:</span><span class="fl">1e2</span>, <span class="sc">~</span>.x))</span>
 <span id="cb45-89"><a href="#cb45-89"></a></span>
 <span id="cb45-90"><a href="#cb45-90"></a></span>
 <span id="cb45-91"><a href="#cb45-91"></a><span class="co"># Example 4: Standard R Function/Operator</span></span>
-<span id="cb45-92"><a href="#cb45-92"></a>results4 <span class="ot">&lt;-</span> bench<span class="sc">::</span><span class="fu">mark</span>(<span class="fu">seq</span>(<span class="dv">1</span>,<span class="fl">1e5</span>))</span>
+<span id="cb45-92"><a href="#cb45-92"></a>results4 <span class="ot">&lt;-</span> bench<span class="sc">::</span><span class="fu">mark</span>(<span class="fu">seq</span>(<span class="dv">1</span>,<span class="fl">1e2</span>))</span>
 <span id="cb45-93"><a href="#cb45-93"></a><span class="in">```</span></span>
 <span id="cb45-94"><a href="#cb45-94"></a></span>
 <span id="cb45-97"><a href="#cb45-97"></a><span class="in">```{r}</span></span>

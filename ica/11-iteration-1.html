@@ -264,12 +264,22 @@ cookieconsent.run({
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../ica/12-iteration-2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">12 Iteration II</span></a>
+  <a href="../ica/12-iteration-2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Walking and Mapping</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ica/14-apis-2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">NYT and Census APIs</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/16-databases.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Flights and SQL</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ica/18-interactive-viz.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Using Plotly</span></a>
   </div>
 </li>
       </ul>
@@ -291,6 +301,11 @@ cookieconsent.run({
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../extra/extra-sample2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">My Listening History: Spotify Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../extra/extra-sample3.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Exploring Plotly</span></a>
   </div>
 </li>
       </ul>
@@ -565,40 +580,40 @@ NULL</code></pre>
 <details class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="co"># Example 1: No storage container; append new value to existing vector</span></span>
 <span id="cb30-2"><a href="#cb30-2"></a>x <span class="ot">&lt;-</span> <span class="fu">integer</span>()</span>
 <span id="cb30-3"><a href="#cb30-3"></a>bench<span class="sc">::</span><span class="fu">mark</span>(</span>
-<span id="cb30-4"><a href="#cb30-4"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fl">1e5</span>) {</span>
+<span id="cb30-4"><a href="#cb30-4"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fl">1e2</span>) {</span>
 <span id="cb30-5"><a href="#cb30-5"></a>    x <span class="ot">&lt;-</span> <span class="fu">c</span>(x, i)</span>
 <span id="cb30-6"><a href="#cb30-6"></a>  }</span>
 <span id="cb30-7"><a href="#cb30-7"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 6
   expression                             min median `itr/sec` mem_alloc `gc/sec`
-  &lt;bch:expr&gt;                          &lt;bch:&gt; &lt;bch:&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;
-1 for (i in 1:1e+05) { x &lt;- c(x, i) }  21.7s  21.7s    0.0461    18.6GB     76.3</code></pre>
+  &lt;bch:expr&gt;                        &lt;bch:tm&gt; &lt;bch:&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;
+1 for (i in 1:100) { x &lt;- c(x, i) }    761µs 2.09ms      478.    33.6KB     45.3</code></pre>
 </div>
 <details class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="co"># Example 2: Using a storage container!</span></span>
 <span id="cb32-2"><a href="#cb32-2"></a><span class="co">#Notice median (time to run), mem_alloc (how much memory you are using), and gc (garbage collection)</span></span>
-<span id="cb32-3"><a href="#cb32-3"></a>x <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">'integer'</span>, <span class="at">length =</span> <span class="fl">1e5</span>)</span>
+<span id="cb32-3"><a href="#cb32-3"></a>x <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">'integer'</span>, <span class="at">length =</span> <span class="fl">1e2</span>)</span>
 <span id="cb32-4"><a href="#cb32-4"></a>bench<span class="sc">::</span><span class="fu">mark</span>(</span>
-<span id="cb32-5"><a href="#cb32-5"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fl">1e5</span>) {</span>
+<span id="cb32-5"><a href="#cb32-5"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fl">1e2</span>) {</span>
 <span id="cb32-6"><a href="#cb32-6"></a>    x[i] <span class="ot">&lt;-</span> i</span>
 <span id="cb32-7"><a href="#cb32-7"></a>  }</span>
 <span id="cb32-8"><a href="#cb32-8"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 6
-  expression                            min  median `itr/sec` mem_alloc `gc/sec`
-  &lt;bch:expr&gt;                       &lt;bch:tm&gt; &lt;bch:t&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;
-1 for (i in 1:1e+05) { x[i] &lt;- i }   2.37ms  2.46ms      406.     402KB     4.06</code></pre>
+  expression                          min   median `itr/sec` mem_alloc `gc/sec`
+  &lt;bch:expr&gt;                     &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;
+1 for (i in 1:100) { x[i] &lt;- i }    611µs    631µs     1547.      12KB     77.6</code></pre>
 </div>
 <details class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="co"># Example 3: Vectorized function</span></span>
 <span id="cb34-2"><a href="#cb34-2"></a><span class="co">#Notice median (time to run), mem_alloc (how much memory you are using), and gc (garbage collection)</span></span>
 <span id="cb34-3"><a href="#cb34-3"></a>bench<span class="sc">::</span><span class="fu">mark</span>(</span>
-<span id="cb34-4"><a href="#cb34-4"></a>  x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="fl">1e5</span>, <span class="at">by =</span> <span class="dv">1</span>)</span>
+<span id="cb34-4"><a href="#cb34-4"></a>  x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="fl">1e2</span>, <span class="at">by =</span> <span class="dv">1</span>)</span>
 <span id="cb34-5"><a href="#cb34-5"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 6
-  expression                      min   median `itr/sec` mem_alloc `gc/sec`
-  &lt;bch:expr&gt;                 &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;
-1 x &lt;- seq(1, 1e+05, by = 1)    293µs    382µs     2654.    1.91MB     110.</code></pre>
+  expression                    min   median `itr/sec` mem_alloc `gc/sec`
+  &lt;bch:expr&gt;               &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;
+1 x &lt;- seq(1, 100, by = 1)   6.19µs   6.68µs   144591.    2.09KB     72.3</code></pre>
 </div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Pair Programming">
@@ -784,20 +799,20 @@ Pair Programming
 <pre><code>$mean
 function (x, ...) 
 UseMethod("mean")
-&lt;bytecode: 0x1186a4cf8&gt;
+&lt;bytecode: 0x121c36ef8&gt;
 &lt;environment: namespace:base&gt;
 
 $med
 function (x, na.rm = FALSE, ...) 
 UseMethod("median")
-&lt;bytecode: 0x129a942a8&gt;
+&lt;bytecode: 0x1210264a8&gt;
 &lt;environment: namespace:stats&gt;
 
 $sd
 function (x, na.rm = FALSE) 
 sqrt(var(if (is.vector(x) || is.factor(x)) x else as.double(x), 
     na.rm = na.rm))
-&lt;bytecode: 0x11a06d060&gt;
+&lt;bytecode: 0x122f36158&gt;
 &lt;environment: namespace:stats&gt;</code></pre>
 </div>
 <details class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1"></a><span class="fu">str</span>(list_of_fcts)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1661,8 +1676,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../ica/12-iteration-2.html" class="pagination-link" aria-label="12 Iteration II">
-        <span class="nav-page-text"><span class="chapter-title">12 Iteration II</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../ica/12-iteration-2.html" class="pagination-link" aria-label="Walking and Mapping">
+        <span class="nav-page-text"><span class="chapter-title">Walking and Mapping</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
@@ -1831,16 +1846,16 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb72-167"><a href="#cb72-167"></a><span class="co"># Example 1: No storage container; append new value to existing vector</span></span>
 <span id="cb72-168"><a href="#cb72-168"></a>x <span class="ot">&lt;-</span> <span class="fu">integer</span>()</span>
 <span id="cb72-169"><a href="#cb72-169"></a>bench<span class="sc">::</span><span class="fu">mark</span>(</span>
-<span id="cb72-170"><a href="#cb72-170"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fl">1e5</span>) {</span>
+<span id="cb72-170"><a href="#cb72-170"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fl">1e2</span>) {</span>
 <span id="cb72-171"><a href="#cb72-171"></a>    x <span class="ot">&lt;-</span> <span class="fu">c</span>(x, i)</span>
 <span id="cb72-172"><a href="#cb72-172"></a>  }</span>
 <span id="cb72-173"><a href="#cb72-173"></a>)</span>
 <span id="cb72-174"><a href="#cb72-174"></a></span>
 <span id="cb72-175"><a href="#cb72-175"></a><span class="co"># Example 2: Using a storage container!</span></span>
 <span id="cb72-176"><a href="#cb72-176"></a><span class="co">#Notice median (time to run), mem_alloc (how much memory you are using), and gc (garbage collection)</span></span>
-<span id="cb72-177"><a href="#cb72-177"></a>x <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">'integer'</span>, <span class="at">length =</span> <span class="fl">1e5</span>)</span>
+<span id="cb72-177"><a href="#cb72-177"></a>x <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">'integer'</span>, <span class="at">length =</span> <span class="fl">1e2</span>)</span>
 <span id="cb72-178"><a href="#cb72-178"></a>bench<span class="sc">::</span><span class="fu">mark</span>(</span>
-<span id="cb72-179"><a href="#cb72-179"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fl">1e5</span>) {</span>
+<span id="cb72-179"><a href="#cb72-179"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fl">1e2</span>) {</span>
 <span id="cb72-180"><a href="#cb72-180"></a>    x[i] <span class="ot">&lt;-</span> i</span>
 <span id="cb72-181"><a href="#cb72-181"></a>  }</span>
 <span id="cb72-182"><a href="#cb72-182"></a>)</span>
@@ -1849,7 +1864,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb72-185"><a href="#cb72-185"></a><span class="co"># Example 3: Vectorized function</span></span>
 <span id="cb72-186"><a href="#cb72-186"></a><span class="co">#Notice median (time to run), mem_alloc (how much memory you are using), and gc (garbage collection)</span></span>
 <span id="cb72-187"><a href="#cb72-187"></a>bench<span class="sc">::</span><span class="fu">mark</span>(</span>
-<span id="cb72-188"><a href="#cb72-188"></a>  x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="fl">1e5</span>, <span class="at">by =</span> <span class="dv">1</span>)</span>
+<span id="cb72-188"><a href="#cb72-188"></a>  x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="fl">1e2</span>, <span class="at">by =</span> <span class="dv">1</span>)</span>
 <span id="cb72-189"><a href="#cb72-189"></a>)</span>
 <span id="cb72-190"><a href="#cb72-190"></a></span>
 <span id="cb72-191"><a href="#cb72-191"></a><span class="in">```</span></span>
