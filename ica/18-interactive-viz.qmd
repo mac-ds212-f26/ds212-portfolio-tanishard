@@ -1,5 +1,5 @@
 ---
-title: "18 Interactive Viz"
+title: "Using Plotly"
 ---
 
 
@@ -336,31 +336,4 @@ ggplotly(p)
 In a web application, having plots be `plotly` objects is just nice by default because of the great mouseover, zoom, and pan features. 
 
 Inside `app.R`, change `plotOutput` to `plotlyOutput` and `renderPlot` to `renderPlotly` for the scatterplot and the barplot. Make sure to add calls to `ggplotly()` too.
-
-
-As part of Homework 9, you will incorporate advanced `plotly` into the Shiny App.
-
-
-## Publish Shiny Apps
-
-To share your work publicly, you'll need to publish your Shiny app.
-
-### Shinyapps.io
-
-The steps below take you through publishing via [shinyapps.io](https://www.shinyapps.io/).
-
-The first step is to install and load the `rsconnect` library.
-
-You will be able to share your app with any individual with internet access unless you make it password-protected.
-
-1. Register for an account at <https://www.shinyapps.io/admin/#/signup>.
-2. Once you are logged in to shinyapps.io, go to Account –> Tokens and click the Show button.
-3. Copy and paste the code into the Console in R. This will connect your account to RStudio.
-4. When you create an app, save it as `app.R` in a folder. It **MUST** be named `app.R`. In the `app.R` file, load all packages you use in your code. Try not to load extra packages---this can make publishing take longer and slow down the app for users. Any data that your app uses needs to be read in within the app. If the data are local to your computer, you need to have the data in the same folder as the app.
-5. Run the app. In the upper right-hand corner, there is an option to publish the app. Click on that. It will take a bit of time to do it the first time. Once published, you can go to the app via the webpage provided.
-
-The instructions are set out in more detail [here](https://shiny.rstudio.com/articles/shinyapps.html).
-## Done!
-
-- Check the ICA Instructions for how to (a) push your code to GitHub and (b) update your portfolio website
 
