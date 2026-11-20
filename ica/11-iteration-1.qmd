@@ -163,16 +163,16 @@ If you don't create a storage container ahead of time, you will regret it. Let's
 # Example 1: No storage container; append new value to existing vector
 x <- integer()
 bench::mark(
-  for (i in 1:1e5) {
+  for (i in 1:1e2) {
     x <- c(x, i)
   }
 )
 
 # Example 2: Using a storage container!
 #Notice median (time to run), mem_alloc (how much memory you are using), and gc (garbage collection)
-x <- vector('integer', length = 1e5)
+x <- vector('integer', length = 1e2)
 bench::mark(
-  for (i in 1:1e5) {
+  for (i in 1:1e2) {
     x[i] <- i
   }
 )
@@ -181,7 +181,7 @@ bench::mark(
 # Example 3: Vectorized function
 #Notice median (time to run), mem_alloc (how much memory you are using), and gc (garbage collection)
 bench::mark(
-  x <- seq(1, 1e5, by = 1)
+  x <- seq(1, 1e2, by = 1)
 )
 
 ```

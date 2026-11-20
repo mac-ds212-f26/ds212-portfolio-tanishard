@@ -1,5 +1,5 @@
 ---
-title: "12 Iteration II"
+title: "Walking and Mapping"
 ---
 
 
@@ -67,13 +67,13 @@ Compare the four ways to create a vector of integers from 1 to 100,000.
 # Example 1: For loop with no storage container; append new value to existing vector
 x <- integer()
 results1 <- bench::mark(
-  for (i in 1:1e5) {
+  for (i in 1:1e2) {
     x <- c(x, i)
   }
 )
 
 # Example 2: For loop with a storage container!
-x <- vector('integer', length = 1e5)
+x <- vector('integer', length = 1e2)
 results2 <- bench::mark(
   for (i in 1:1e5) {
     x[i] <- i
@@ -81,11 +81,11 @@ results2 <- bench::mark(
 )
 
 # Example 3: purrr::map()
-results3 <- bench::mark(purrr::map_int(1:1e5, ~.x))
+results3 <- bench::mark(purrr::map_int(1:1e2, ~.x))
 
 
 # Example 4: Standard R Function/Operator
-results4 <- bench::mark(seq(1,1e5))
+results4 <- bench::mark(seq(1,1e2))
 ```
 
 ```{r}
